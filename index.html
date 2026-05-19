@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>GilangStore</title>
+  <link rel="icon" href="gilz.png?v=20">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="loader" class="loader">
+    <div class="loader-card">
+      <img src="gilz.png" onerror="this.style.display='none'">
+      <h1>GilangStore</h1>
+      <p>Loading premium apps...</p>
+      <div class="loader-line"><span></span></div>
+    </div>
+  </div>
+
+  <div id="maintenance" class="maintenance">
+    <div class="maintenance-card">
+      <img src="gilz.png" onerror="this.style.display='none'">
+      <h1 id="maintenanceTitle">GilangStore</h1>
+      <p id="maintenanceText">Toko sedang maintenance. Silakan kembali lagi nanti.</p>
+      <a id="maintenanceWa" target="_blank">Chat Admin</a>
+    </div>
+  </div>
+
+  <header class="topbar">
+    <button id="drawerBtn" class="home-btn"><span id="iconMenuHome">🏠</span></button>
+    <div class="brand" id="homeBtn">
+      <img src="gilz.png" onerror="this.style.display='none'">
+      <b id="storeName">GilangStore</b>
+    </div>
+    <input id="searchInput" class="search" placeholder="Cari produk...">
+  </header>
+
+  <div class="nav-scroll">
+    <button data-go="produk">Produk</button>
+    <button data-go="cek">Cek Pesanan</button>
+    <button data-go="garansi">Garansi</button>
+    <button data-go="riwayat">Riwayat</button>
+    <button data-go="cara">Cara Order</button>
+    <button data-go="faq">FAQ</button>
+    <a href="admin.html">Admin</a>
+  </div>
+
+  <div class="running"><span id="runningText">🔥 Promo Premium Apps • Fast Respond • Garansi Aktif • Order via WhatsApp •</span></div>
+
+  <aside id="drawer" class="drawer">
+    <div class="drawer-head">
+      <div>
+        <b id="drawerStoreName">GilangStore</b>
+        <small>Premium apps & digital product</small>
+      </div>
+      <button id="closeDrawer">×</button>
+    </div>
+    <button data-go="produk"><span id="drawerBeliIcon">🛒</span> Beli Produk</button>
+    <button data-go="terlaris"><span id="drawerTopIcon">🏆</span> Top Produk</button>
+    <button data-go="cek"><span id="drawerCekIcon">🔍</span> Cek Pesanan</button>
+    <button data-go="riwayat"><span id="drawerRiwayatIcon">🧾</span> Riwayat Order</button>
+    <button data-go="garansi"><span id="drawerGaransiIcon">🛡️</span> Cek Garansi</button>
+    <button data-go="cara"><span id="drawerCaraIcon">📦</span> Cara Order</button>
+    <button data-go="faq"><span id="drawerFaqIcon">❓</span> FAQ</button>
+    <button data-go="terms"><span id="drawerTermsIcon">📜</span> Terms</button>
+    <a id="drawerWa" target="_blank" class="drawer-wa">Chat Admin</a>
+  </aside>
+  <div id="overlay" class="overlay"></div>
+
+  <main>
+    <div id="bannerBox" class="banner">Info toko</div>
+
+    <section class="admin-status">
+      <b id="adminStatus">🟢 Admin Online</b>
+      <span id="adminHours">Fast respond 08.00–22.00 WIB</span>
+    </section>
+
+    <section class="countdown">
+      <b><span id="iconPromo">🔥</span> <span id="promoTitleText">Promo hari ini berakhir dalam</span></b>
+      <span id="countdownTimer">00:00:00</span>
+    </section>
+
+    <section class="sheet-status" id="sheetStatus">
+      <b>Google Sheets</b><span>Memuat data...</span>
+    </section>
+
+    <section class="hero" id="home">
+      <div class="hero-grid"></div>
+      <div class="particles" id="particles"></div>
+      <div class="hero-content">
+        <img src="gilz.png" onerror="this.style.display='none'">
+        <h1 id="heroTitle">GilangStore</h1>
+        <p id="heroSubtitle">Premium apps & digital product</p>
+        <div class="hero-actions">
+          <button data-go="produk" class="primary"><span id="iconLihatProduk">🛍️</span> <span id="textLihatProduk">Lihat Produk</span></button>
+          <button data-go="kontak" class="secondary"><span id="iconHubungiAdmin">👤</span> <span id="textHubungiAdmin">Hubungi Admin</span></button>
+        </div>
+      </div>
+    </section>
+
+    <section id="produk" class="section">
+      <div class="section-head">
+        <h2>Produk</h2>
+        <span id="productCount">0 produk</span>
+      </div>
+      <div id="categories" class="chips"></div>
+      <div class="view-toggle">
+        <button id="normalView" class="active">Normal</button>
+        <button id="compactView">Compact</button>
+      </div>
+      <div id="products" class="grid"></div>
+    </section>
+
+    <section id="terlaris" class="section card">
+      <h2>🔥 Produk Terlaris</h2>
+      <p>Produk pilihan yang paling sering dicari pembeli.</p>
+      <div id="bestGrid" class="best-grid"></div>
+    </section>
+
+    <section id="cek" class="section card">
+      <h2>🔍 Cek Pesanan</h2>
+      <p>Masukkan Order ID kamu untuk melihat status real dari Supabase.</p>
+      <div class="track-box">
+        <input id="trackInput" placeholder="Contoh: GLZ-20260519-4821">
+        <button id="trackBtn">Cari</button>
+      </div>
+      <div id="trackResult" class="result"></div>
+      <div class="orders-panel">
+        <div class="orders-head"><b>10 Pesanan Terbaru</b><span id="recentUpdated">Live DB</span></div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Order ID</th><th>Produk</th><th>Paket</th><th>Status</th></tr></thead>
+            <tbody id="recentBody"><tr><td colspan="4">Memuat...</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="garansi" class="section card">
+      <h2>🛡️ Cek Garansi</h2>
+      <p>Cek garansi berdasarkan Order ID dari database.</p>
+      <div class="track-box">
+        <input id="warrantyInput" placeholder="Masukkan Order ID">
+        <button id="warrantyBtn">Cek</button>
+      </div>
+      <div id="warrantyResult" class="result"></div>
+    </section>
+
+    <section id="riwayat" class="section card">
+      <h2>🧾 Riwayat Browser</h2>
+      <div id="historyList"></div>
+    </section>
+
+    <section id="cara" class="section card">
+      <h2>📦 Cara Order</h2>
+      <div class="steps">
+        <div><b>1. Pilih produk</b><br>Klik produk yang ingin kamu beli.</div>
+        <div><b>2. Pilih paket</b><br>Pilih opsi, isi kontak, lalu checkout.</div>
+        <div><b>3. Bayar manual</b><br>Transfer DANA/GoPay/OVO/QRIS.</div>
+        <div><b>4. Admin update</b><br>Kirim bukti, admin ubah status di panel.</div>
+      </div>
+    </section>
+
+    <section id="faq" class="section card">
+      <h2>❓ FAQ</h2>
+      <div class="faq-item"><b>Apakah otomatis?</b><p>Order masuk database otomatis, pembayaran masih dicek manual admin.</p></div>
+      <div class="faq-item"><b>Berapa lama proses?</b><p>Biasanya 1–15 menit saat admin online.</p></div>
+      <div class="faq-item"><b>Ada garansi?</b><p>Ada sesuai paket dan keterangan produk.</p></div>
+    </section>
+
+    <section id="terms" class="section card">
+      <h2>📜 Terms & Garansi</h2>
+      <p>Simpan Order ID. Garansi berlaku sesuai paket, dan hanya diproses lewat kontak admin resmi.</p>
+    </section>
+
+    <section id="kontak" class="section card">
+      <h2>💬 Kontak Admin</h2>
+      <a id="waLink" class="main-btn" target="_blank">Chat WhatsApp</a>
+    </section>
+  </main>
+
+  <div id="detailModal" class="modal">
+    <div class="modal-box">
+      <button id="closeDetail" class="modal-close">×</button>
+      <img id="detailImage" class="detail-img" onerror="this.src='gilz.png'">
+      <h2 id="detailName">Produk</h2>
+      <p id="detailDesc"></p>
+      <div class="stats"><span id="detailRating">⭐ 4.9</span><span id="detailSold">Terjual 0</span><span id="detailStock">Stok 0</span></div>
+      <label>Pilih Paket</label>
+      <div class="plans">
+        <button class="plan active" data-plan="1"><b id="plan1Text">1 Bulan</b><span id="plan1Price">Rp0</span></button>
+        <button class="plan" data-plan="2"><b id="plan2Text">2 Bulan</b><span id="plan2Price">Rp0</span></button>
+        <button class="plan" data-plan="3"><b id="plan3Text">3 Bulan</b><span id="plan3Price">Rp0</span></button>
+      </div>
+      <label>Email / Username / Nomor Pembeli</label>
+      <input id="buyerContact" placeholder="contoh: emailkamu@gmail.com">
+      <label>Metode Pembayaran</label>
+      <div class="payments">
+        <button class="pay active" data-pay="DANA">DANA</button>
+        <button class="pay" data-pay="GoPay">GoPay</button>
+        <button class="pay" data-pay="OVO">OVO</button>
+        <button class="pay" data-pay="QRIS">QRIS</button>
+      </div>
+      <label>Catatan</label>
+      <textarea id="buyerNote" placeholder="Catatan tambahan"></textarea>
+      <div id="summary" class="summary"></div>
+      <button id="checkoutBtn" class="main-btn">Buat Order</button>
+      <button id="askProductBtn" class="secondary-btn">Tanya Produk Ini</button>
+    </div>
+  </div>
+
+  <div id="payModal" class="modal">
+    <div class="modal-box">
+      <button id="closePay" class="modal-close">×</button>
+      <h2>💳 Pembayaran Manual</h2>
+      <div id="payInfo" class="summary"></div>
+      <div class="copy-row">
+        <input id="payNumber" readonly>
+        <button id="copyPay">Salin</button>
+      </div>
+      <img id="qrisImg" class="qris" src="qris.png" onerror="this.style.display='none'">
+      <button id="paidBtn" class="main-btn">Saya Sudah Bayar</button>
+      <a id="proofWa" target="_blank" class="secondary-btn">Kirim Bukti ke WhatsApp</a>
+    </div>
+  </div>
+
+  <nav class="bottom-nav">
+    <a data-go="produk"><span id="bottomProdukIcon">🛍️</span><small id="bottomProdukText">Produk</small></a>
+    <a data-go="cek"><span id="bottomLacakIcon">📦</span><small id="bottomLacakText">Lacak</small></a>
+    <a data-go="riwayat">🧾<small>Riwayat</small></a>
+    <a id="bottomWa" target="_blank"><span id="bottomChatIcon">💬</span><small id="bottomChatText">Chat</small></a>
+  </nav>
+
+  <a id="floatWa" class="float-wa" target="_blank"><span id="iconFloatingWa">💬</span></a>
+  <div id="toast" class="toast">OK</div>
+  <script type="module" src="shop.js"></script>
+</body>
+</html>

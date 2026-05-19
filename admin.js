@@ -1,0 +1,13 @@
+
+import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
+import { CONFIG } from "./config.js";
+const supabase=createClient(CONFIG.SUPABASE_URL,CONFIG.SUPABASE_ANON_KEY);
+const $=id=>document.getElementById(id),rupiah=n=>"Rp "+Number(n||0).toLocaleString("id-ID");
+function toast(m){$("toast").textContent=m;$("toast").classList.add("show");setTimeout(()=>$("toast").classList.remove("show"),1800)}
+function statusClass(s){const v=String(s||"").toLowerCase();if(v.includes("selesai")||v.includes("success")||v.includes("berhasil"))return"selesai";if(v.includes("proses"))return"diproses";if(v.includes("batal"))return"batal";return"pending"}
+async function check(){const {data}=await supabase.auth.getSession();if(data.session){$("loginBox").classList.add("hidden");$("adminBox").classList.remove("hidden");loadOrders()}}
+async function login(){const email=$("email").value.trim(),password=$("password").value;const {error}=await supabase.auth.signInWithPassword({email,password});if(error)return toast("Login gagal: "+error.message);toast("Login berhasil");check()}
+async function logout(){await supabase.auth.signOut();location.reload()}
+async function loadOrders(){const {data,error}=await supabase.from("orders").select("*").order("created_at",{ascending:false}).limit(80);if(error)return toast("Gagal load: "+error.message);$("ordersList").innerHTML=(data||[]).map(o=>`<div class="item"><b>${o.produk}</b><br>Order ID: <b>${o.order_id}</b><br>Paket: <b>${o.paket}</b><br>Total: <b>${rupiah(o.total)}</b><br>Payment: <b>${o.payment}</b><br>Buyer: <b>${o.buyer_contact||"-"}</b><br>Catatan: <b>${o.catatan||"-"}</b><br>Status: <span class="statuspill ${statusClass(o.status)}">${o.status}</span><select data-id="${o.order_id}"><option ${o.status==="menunggu_pembayaran"?"selected":""}>menunggu_pembayaran</option><option ${o.status==="menunggu_konfirmasi"?"selected":""}>menunggu_konfirmasi</option><option ${o.status==="diproses"?"selected":""}>diproses</option><option ${o.status==="selesai"?"selected":""}>selesai</option><option ${o.status==="batal"?"selected":""}>batal</option></select><button class="secondary-btn update" data-id="${o.order_id}">Update Status</button></div>`).join("")||"Belum ada order";document.querySelectorAll(".update").forEach(b=>b.onclick=()=>updateStatus(b.dataset.id))}
+async function updateStatus(id){const status=document.querySelector(`select[data-id="${id}"]`).value;const {error}=await supabase.from("orders").update({status}).eq("order_id",id);if(error)return toast("Gagal update: "+error.message);toast("Status diupdate");loadOrders()}
+$("loginBtn").onclick=login;$("logoutBtn").onclick=logout;$("refreshBtn").onclick=loadOrders;check();
