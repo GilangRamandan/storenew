@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Admin GilangStore</title>
+<style>
+:root{--bg:#061424;--panel:#091a2c;--panel2:#0b2036;--line:#264462;--cyan:#21d4e5;--gold:#f6bd24;--txt:#f8fbff;--muted:#9fb0c7;--red:#ef4444;--green:#22c55e}
+*{box-sizing:border-box;margin:0;padding:0;font-family:Inter,Arial,sans-serif}body{background:linear-gradient(135deg,#061424,#08233d);color:var(--txt);min-height:100vh}button,input,select,textarea{font:inherit}button{cursor:pointer;border:0}.hide{display:none!important}.loginPage{min-height:100vh;display:grid;place-items:center;padding:18px}.loginBox{width:min(520px,100%);background:rgba(9,26,44,.96);border:1px solid var(--line);border-radius:26px;padding:28px;box-shadow:0 28px 80px rgba(0,0,0,.38)}.logoRow{display:flex;gap:16px;align-items:center;margin-bottom:24px}.logo{width:62px;height:62px;border-radius:19px;background:var(--cyan);color:#072333;display:grid;place-items:center;font-weight:950}.loginBox h1{font-size:32px}.muted{color:var(--muted);line-height:1.5}.field{display:block;margin:16px 0 8px;font-weight:800}.input,select,textarea{width:100%;background:#081728;color:white;border:1px solid #345676;border-radius:18px;padding:15px 17px;outline:0}.input:focus,select:focus,textarea:focus{border-color:var(--cyan)}.row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}.btn{border-radius:17px;padding:14px 20px;font-weight:950;background:#18334f;color:white;border:1px solid #365875}.btn.primary{background:var(--cyan);color:#061424;border-color:var(--cyan)}.btn.gold{background:var(--gold);color:#111;border-color:var(--gold)}.btn.danger{background:#401724;color:#ffd4d4;border-color:#743044}.msg{margin-top:14px;background:#071322;border:1px solid #385a78;border-radius:16px;padding:13px;color:#cfe9ff;white-space:pre-wrap}.app{display:grid;grid-template-columns:275px 1fr;min-height:100vh}.side{background:#071424;border-right:1px solid #18324f;padding:20px;position:sticky;top:0;height:100vh}.brand{display:flex;gap:12px;align-items:center;margin-bottom:24px}.brand .logo{width:46px;height:46px;border-radius:14px}.navBtn{width:100%;text-align:left;padding:14px;border-radius:16px;background:transparent;color:#d7e6f8;margin:6px 0;font-weight:850}.navBtn.active,.navBtn:hover{background:#112a45;color:#fff}.main{padding:26px;max-width:1220px}.head{display:flex;justify-content:space-between;gap:14px;align-items:center;margin-bottom:22px}.head h1{font-size:34px}.card{background:rgba(9,26,44,.92);border:1px solid var(--line);border-radius:28px;padding:22px;margin-bottom:22px}.grid{display:grid;grid-template-columns:340px 1fr;gap:22px}.list{max-height:680px;overflow:auto;padding-right:6px}.item{background:#081728;border:1px solid #25435f;border-radius:18px;padding:16px;margin:10px 0;cursor:pointer}.item.active{border-color:var(--cyan);box-shadow:0 0 0 1px var(--cyan)}.item b{display:block;font-size:18px}.small{font-size:13px;color:var(--muted);margin-top:5px}.opt{background:#071728;border:1px solid #284863;border-radius:20px;padding:16px;margin:14px 0}.optHead{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:12px}.pill{background:#12304d;color:#cceaff;border-radius:999px;padding:6px 10px;font-size:13px}.tableWrap{overflow:auto}.table{width:100%;border-collapse:collapse;min-width:800px}.table th,.table td{padding:12px;border-bottom:1px solid #213b55;text-align:left;vertical-align:middle}.table th{color:#cfe3fa}.status{border-radius:999px;padding:6px 10px;background:#132f4b;color:#d9edff;font-weight:800;white-space:nowrap}.debug{font-family:ui-monospace,Consolas,monospace;font-size:12px;background:#06101c;border:1px solid #294967;border-radius:16px;padding:12px;white-space:pre-wrap;color:#b7d5f5}
+@media(max-width:850px){.app{grid-template-columns:1fr}.side{position:relative;height:auto}.main{padding:16px}.grid{grid-template-columns:1fr}.head{align-items:flex-start;flex-direction:column}.loginBox h1{font-size:28px}}
+</style>
+</head>
+<body>
+<section id="loginPage" class="loginPage">
+  <div class="loginBox">
+    <div class="logoRow"><div class="logo">GS</div><div><h1>Admin GilangStore</h1><p class="muted">Login pakai akun Supabase Auth</p></div></div>
+    <label class="field">Email admin</label><input id="loginEmail" class="input" type="email" placeholder="email@gmail.com" autocomplete="email">
+    <label class="field">Password</label><input id="loginPass" class="input" type="password" placeholder="password" autocomplete="current-password">
+    <div class="row" style="margin-top:18px"><button id="loginBtn" class="btn primary" type="button">Masuk</button><button id="signupBtn" class="btn" type="button">Buat akun</button></div>
+    <div id="loginMsg" class="msg">Kalau baru buat akun, pastikan email juga sudah masuk tabel admin_users.</div>
+  </div>
+</section>
+
+<section id="app" class="app hide">
+  <aside class="side">
+    <div class="brand"><div class="logo">GS</div><div><b>Admin GilangStore</b><p id="adminEmail" class="small">-</p></div></div>
+    <button class="navBtn active" data-page="produk">🛒 Produk & Harga</button>
+    <button class="navBtn" data-page="orders">📦 Status Pesanan</button>
+    <button class="navBtn" data-page="preview">👁 Preview Produk</button>
+    <button class="navBtn" onclick="location.href='index.html'">🌐 Lihat Web</button>
+    <button class="navBtn" id="logoutBtn">🚪 Logout</button>
+  </aside>
+  <main class="main">
+    <div class="head"><div><h1 id="pageTitle">Produk & Harga</h1><p class="muted">Edit produk, opsi harga/topup, dan status pesanan.</p></div><button id="reloadBtn" class="btn">Reload data</button></div>
+    <div id="pageProduk">
+      <div class="grid">
+        <div class="card"><input id="searchProduct" class="input" placeholder="Cari produk..."><div id="productList" class="list"></div></div>
+        <div class="card" id="productEditor"><h2>Pilih produk dulu</h2><p class="muted">Klik produk di kiri untuk edit.</p></div>
+      </div>
+    </div>
+    <div id="pageOrders" class="hide">
+      <div class="card">
+        <div class="row"><input id="searchOrder" class="input" style="flex:1;min-width:230px" placeholder="Cari order id / produk / kontak"><select id="filterStatus" style="width:230px"><option value="">Semua status</option><option>menunggu_pembayaran</option><option>pembayaran_diterima</option><option>diproses</option><option>selesai</option><option>dibatalkan</option><option>refund</option></select></div>
+        <div class="tableWrap" style="margin-top:16px"><table class="table"><thead><tr><th>Order ID</th><th>Produk</th><th>Paket</th><th>Total</th><th>Kontak</th><th>Status</th><th>Aksi</th></tr></thead><tbody id="orderBody"><tr><td colspan="7">Memuat...</td></tr></tbody></table></div>
+      </div>
+    </div>
+    <div id="pagePreview" class="hide"><div class="card"><h2>Preview Produk</h2><p class="muted">Buka web utama untuk cek hasil perubahan harga.</p><button class="btn gold" onclick="location.href='index.html'">Buka Web Utama</button></div><div id="debugBox" class="debug" style="margin-top:14px"></div></div>
+  </main>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-config.js"></script>
+<script>
+(function(){
+const $=id=>document.getElementById(id);
+const msg=t=>{$('loginMsg').textContent=t;};
+const money=n=>'Rp '+Number(n||0).toLocaleString('id-ID');
+function getCfg(){
+  let url=null,key=null;
+  try{ if(typeof SUPABASE_URL!=='undefined') url=SUPABASE_URL; }catch(e){}
+  try{ if(typeof SUPABASE_ANON_KEY!=='undefined') key=SUPABASE_ANON_KEY; }catch(e){}
+  const boxes=[window.SUPABASE_CONFIG,window.supabaseConfig,window.GILANG_SUPABASE_CONFIG,window.CONFIG];
+  for(const c of boxes){ if(c){ url=url||c.url||c.supabaseUrl||c.SUPABASE_URL; key=key||c.anonKey||c.supabaseAnonKey||c.SUPABASE_ANON_KEY; }}
+  return {url,key};
+}
+const cfg=getCfg();
+if(!cfg.url||!cfg.key){ msg('ERROR: supabase-config.js belum kebaca. Pastikan file supabase-config.js ada dan berisi SUPABASE_URL + SUPABASE_ANON_KEY.'); return; }
+const supabase=window.supabase.createClient(cfg.url,cfg.key);
+let user=null, products=[], options=[], orders=[], selectedProduct=null;
+const STATUSES=['menunggu_pembayaran','pembayaran_diterima','diproses','selesai','dibatalkan','refund'];
+function showApp(){ $('loginPage').classList.add('hide'); $('app').classList.remove('hide'); $('adminEmail').textContent=user?.email||'-'; loadAll(); }
+function showLogin(){ $('app').classList.add('hide'); $('loginPage').classList.remove('hide'); }
+async function checkAdmin(u){
+  const email=(u.email||'').toLowerCase();
+  let q=await supabase.from('admin_users').select('*').or(`email.eq.${email},user_id.eq.${u.id}`).limit(1);
+  if(q.error){ return {ok:false,error:'Gagal cek admin_users: '+q.error.message}; }
+  if(!q.data||!q.data.length){ return {ok:false,error:'Login berhasil, tapi email ini belum ada di admin_users:\n'+email+'\nTambahkan user_id + email di Supabase SQL.'}; }
+  return {ok:true};
+}
+async function doLogin(){
+  $('loginBtn').disabled=true; msg('Mencoba login...');
+  const email=$('loginEmail').value.trim(); const password=$('loginPass').value;
+  const {data,error}=await supabase.auth.signInWithPassword({email,password});
+  if(error){ $('loginBtn').disabled=false; msg('Login gagal: '+error.message); return; }
+  user=data.user||data.session?.user;
+  const adm=await checkAdmin(user);
+  if(!adm.ok){ $('loginBtn').disabled=false; msg(adm.error); await supabase.auth.signOut(); return; }
+  msg('Login berhasil. Membuka dashboard...'); showApp(); $('loginBtn').disabled=false;
+}
+async function doSignup(){
+  $('signupBtn').disabled=true; msg('Membuat akun...');
+  const email=$('loginEmail').value.trim(); const password=$('loginPass').value;
+  const {error}=await supabase.auth.signUp({email,password});
+  $('signupBtn').disabled=false;
+  msg(error ? 'Buat akun gagal: '+error.message : 'Akun dibuat. Kalau butuh confirm email, cek inbox. Lalu masukkan email/user_id ke admin_users.');
+}
+$('loginBtn').onclick=doLogin; $('signupBtn').onclick=doSignup; $('loginPass').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();});
+$('logoutBtn').onclick=async()=>{await supabase.auth.signOut(); user=null; showLogin();};
+$('reloadBtn').onclick=loadAll;
+document.querySelectorAll('.navBtn[data-page]').forEach(b=>b.onclick=()=>showPage(b.dataset.page));
+function showPage(p){ document.querySelectorAll('.navBtn[data-page]').forEach(b=>b.classList.toggle('active',b.dataset.page===p)); $('pageProduk').classList.toggle('hide',p!=='produk'); $('pageOrders').classList.toggle('hide',p!=='orders'); $('pagePreview').classList.toggle('hide',p!=='preview'); $('pageTitle').textContent=p==='orders'?'Status Pesanan':p==='preview'?'Preview Produk':'Produk & Harga'; if(p==='orders') renderOrders(); if(p==='preview') $('debugBox').textContent='Supabase URL: '+cfg.url+'\nLogin: '+(user?.email||'-')+'\nProduk: '+products.length+'\nOpsi: '+options.length+'\nOrders: '+orders.length; }
+async function loadAll(){
+  await Promise.all([loadProducts(),loadOrders()]);
+}
+async function loadProducts(){
+  const p=await supabase.from('products').select('*').order('name',{ascending:true});
+  const o=await supabase.from('product_options').select('*').order('label',{ascending:true});
+  if(p.error){ alert('Gagal load products: '+p.error.message); return; }
+  if(o.error){ alert('Gagal load product_options: '+o.error.message); return; }
+  products=p.data||[]; options=o.data||[]; renderProductList(); if(selectedProduct){ selectedProduct=products.find(x=>x.id===selectedProduct.id)||null; if(selectedProduct) renderEditor(selectedProduct); }
+}
+$('searchProduct').oninput=renderProductList;
+function renderProductList(){ const q=$('searchProduct').value.toLowerCase(); const list=products.filter(p=>(p.name+' '+(p.category||'')+' '+(p.id||'')).toLowerCase().includes(q)); $('productList').innerHTML=list.map(p=>`<div class="item ${selectedProduct?.id===p.id?'active':''}" data-id="${p.id}"><b>${esc(p.name)}</b><div class="small">${esc(p.category||'-')} • ${esc(p.id)}</div></div>`).join('')||'<p class="muted">Produk kosong.</p>'; document.querySelectorAll('.item[data-id]').forEach(el=>el.onclick=()=>{selectedProduct=products.find(p=>p.id===el.dataset.id); renderProductList(); renderEditor(selectedProduct);}); }
+function renderEditor(p){ const opts=options.filter(o=>o.product_id===p.id); $('productEditor').innerHTML=`<h2>${esc(p.name)}</h2><label class="field">Nama produk</label><input class="input" id="edName" value="${attr(p.name)}"><label class="field">Icon</label><input class="input" id="edIcon" value="${attr(p.icon||'')}"><label class="field">Kategori</label><input class="input" id="edCat" value="${attr(p.category||'')}"><label class="field">Publisher</label><input class="input" id="edPub" value="${attr(p.publisher||'')}"><div class="row" style="margin-top:14px"><button class="btn primary" id="saveProduct">Simpan produk</button></div><hr style="border:0;border-top:1px solid var(--line);margin:24px 0"><h2>Opsi harga / topup</h2><p class="muted">Edit 1 Bulan, 2 Bulan, 3 Bulan, atau nominal topup di sini.</p><div id="opsBox">${opts.map(renderOpt).join('')||'<p class="muted">Belum ada opsi.</p>'}</div><div class="opt"><h3>Tambah opsi baru</h3><input class="input" id="newLabel" placeholder="Contoh: 1 Bulan / 86 Diamonds"><br><br><input class="input" id="newPrice" type="number" placeholder="Harga, contoh 5000"><br><br><button class="btn gold" id="addOpt">Tambah opsi</button></div>`; $('saveProduct').onclick=saveProduct; document.querySelectorAll('[data-saveopt]').forEach(b=>b.onclick=()=>saveOpt(b.dataset.saveopt)); document.querySelectorAll('[data-delopt]').forEach(b=>b.onclick=()=>delOpt(b.dataset.delopt)); $('addOpt').onclick=addOpt; }
+function renderOpt(o){return `<div class="opt"><div class="optHead"><b>${esc(o.label)}</b><span class="pill">${money(o.price)}</span></div><input class="input" id="lab_${o.id}" value="${attr(o.label)}"><br><br><input class="input" id="pri_${o.id}" type="number" value="${Number(o.price||0)}"><br><br><div class="row"><button class="btn primary" data-saveopt="${o.id}">Simpan opsi</button><button class="btn danger" data-delopt="${o.id}">Hapus</button></div></div>`}
+async function saveProduct(){ const patch={name:$('edName').value.trim(),icon:$('edIcon').value.trim(),category:$('edCat').value.trim(),publisher:$('edPub').value.trim()}; const {error}=await supabase.from('products').update(patch).eq('id',selectedProduct.id); if(error) return alert('Gagal simpan produk: '+error.message); alert('Produk tersimpan'); await loadProducts(); }
+async function saveOpt(id){ const patch={label:$('lab_'+id).value.trim(),price:Number($('pri_'+id).value||0)}; const {error}=await supabase.from('product_options').update(patch).eq('id',id); if(error) return alert('Gagal simpan opsi: '+error.message); alert('Opsi tersimpan'); await loadProducts(); }
+async function delOpt(id){ if(!confirm('Hapus opsi ini?')) return; const {error}=await supabase.from('product_options').delete().eq('id',id); if(error) return alert('Gagal hapus: '+error.message); await loadProducts(); }
+async function addOpt(){ const label=$('newLabel').value.trim(); const price=Number($('newPrice').value||0); if(!label||!price) return alert('Isi label dan harga'); const {error}=await supabase.from('product_options').insert({product_id:selectedProduct.id,label,price,is_active:true}); if(error) return alert('Gagal tambah opsi: '+error.message); await loadProducts(); }
+async function loadOrders(){ const q=await supabase.from('orders').select('*').order('created_at',{ascending:false}).limit(80); if(q.error){ console.warn(q.error); return; } orders=q.data||[]; renderOrders(); }
+$('searchOrder').oninput=renderOrders; $('filterStatus').onchange=renderOrders;
+function renderOrders(){ const q=($('searchOrder').value||'').toLowerCase(); const fs=$('filterStatus').value; const list=orders.filter(o=>{const text=(o.order_id+' '+o.produk+' '+o.paket+' '+o.buyer_contact+' '+o.status).toLowerCase(); return (!q||text.includes(q))&&(!fs||o.status===fs);}); $('orderBody').innerHTML=list.map(o=>`<tr><td><b>${esc(o.order_id||'-')}</b></td><td>${esc(o.produk||'-')}</td><td>${esc(o.paket||'-')}</td><td>${money(o.total)}</td><td>${esc(o.buyer_contact||'-')}</td><td><span class="status">${esc(o.status||'-')}</span></td><td><select id="st_${o.id||o.order_id}">${STATUSES.map(s=>`<option ${s===(o.status||'')?'selected':''}>${s}</option>`).join('')}</select><br><br><button class="btn primary" data-uporder="${o.id||o.order_id}">Simpan</button></td></tr>`).join('')||'<tr><td colspan="7">Belum ada order.</td></tr>'; document.querySelectorAll('[data-uporder]').forEach(b=>b.onclick=()=>updateOrder(b.dataset.uporder)); }
+async function updateOrder(key){ const val=$('st_'+CSS.escape(key)).value; let error; if(isUuid(key)){ ({error}=await supabase.from('orders').update({status:val}).eq('id',key)); } else { ({error}=await supabase.from('orders').update({status:val}).eq('order_id',key)); } if(error) return alert('Gagal update status: '+error.message); alert('Status tersimpan'); await loadOrders(); }
+function isUuid(x){return /^[0-9a-f]{8}-/i.test(x)}
+function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+function attr(s){return esc(s).replace(/`/g,'&#96;')}
+(async()=>{ const {data}=await supabase.auth.getSession(); if(data.session?.user){ user=data.session.user; const adm=await checkAdmin(user); if(adm.ok) showApp(); else { await supabase.auth.signOut(); msg(adm.error); showLogin(); } }})();
+})();
+</script>
+</body>
+</html>
