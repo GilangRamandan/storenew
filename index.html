@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GilangStore - Top Up Game & Premium Apps</title>
+<link rel="icon" href="gilz.png">
+<style>
+:root{--bg:#050505;--card:#101010;--soft:#161616;--line:#252525;--gold:#f6bd24;--gold2:#ffe08a;--muted:#8a8a8a;--txt:#fff;--blue:#18a8ff}
+*{box-sizing:border-box;margin:0;padding:0;font-family:Inter,Arial,sans-serif}body{background:#050505;color:#fff;min-height:100vh;padding-bottom:80px}body:before{content:"GZ GZ GZ GZ GZ";position:fixed;inset:0;font-size:140px;font-weight:1000;color:rgba(246,189,36,.025);line-height:1.05;word-break:break-all;z-index:-1}a{text-decoration:none;color:inherit}button{font:inherit;cursor:pointer}
+.top{position:sticky;top:0;z-index:60;height:62px;background:rgba(5,5,5,.92);backdrop-filter:blur(14px);border-bottom:1px solid #171717;display:flex;align-items:center;gap:12px;padding:10px 14px}.hamb{border:0;background:0;color:#fff;font-size:24px}.brand{display:flex;align-items:center;gap:8px;font-weight:950;font-size:20px}.brand img{width:34px;height:34px;border-radius:10px;object-fit:cover}.search{margin-left:auto;background:#0a0a0a;border:1px solid #222;border-radius:999px;padding:7px 8px 7px 14px;display:flex;gap:8px;min-width:310px}.search input{background:0;border:0;color:white;outline:0;width:100%}.search button{width:34px;height:34px;border:0;border-radius:50%;background:var(--gold);color:#111;font-weight:950}.auth{display:flex;gap:8px}.auth button{border:0;border-radius:9px;padding:9px 14px;font-weight:850}.login{background:#0b0b0b;color:white}.register{background:var(--gold);color:#111}
+.wrap{max-width:1180px;margin:auto;padding:14px}.hero{height:330px;border-radius:15px;border:1px solid #3b2e0d;background:linear-gradient(100deg,#161005,#2e2206 45%,#060606);position:relative;overflow:hidden;display:flex;align-items:center;padding:40px;margin:18px 0}.hero:after{content:"";position:absolute;right:-80px;top:-40px;width:60%;height:140%;background:radial-gradient(circle,#f6bd244f,transparent 60%);filter:blur(2px)}.hero h1{font-size:clamp(34px,6vw,58px);line-height:1.03;text-transform:uppercase;text-shadow:0 3px #000;max-width:630px}.hero h1 span{color:var(--gold)}.hero p{color:#e5e5e5;max-width:560px;margin:14px 0}.chips{display:flex;gap:9px;flex-wrap:wrap}.chip{border:1px solid #5e4814;background:#0b0b0b;border-radius:10px;padding:10px 12px;color:#ffe39b;font-weight:800;font-size:13px}
+.title{font-size:20px;margin:24px 0 14px}.popular{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.pop{background:linear-gradient(135deg,#171717,#0b0b0b);border:1px solid #242424;border-radius:11px;padding:12px;display:flex;gap:12px;align-items:center;min-height:72px;cursor:pointer;transition:.15s}.pop:hover,.product:hover{transform:translateY(-2px);border-color:#4b3a11}.logoicon{width:48px;height:48px;border-radius:12px;display:grid;place-items:center;font-weight:950;color:white;box-shadow:inset 0 0 22px rgba(255,255,255,.08)}.pop b{font-size:13px}.pop span,.product p{display:block;color:#808080;font-size:11px;margin-top:4px}
+.catHead{text-align:center;color:var(--gold);font-size:12px;letter-spacing:.8px;margin:34px 0 12px}.catHead b{display:block;color:white;font-size:21px;margin-top:5px}.tabs{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-bottom:24px}.tab{border:1px solid #222;background:#101010;color:#ddd;border-radius:12px;padding:11px 18px}.tab.active{border-color:#806013;background:linear-gradient(90deg,#271f09,#101010);color:#ffd45f}.block{margin:25px 0}.block h2{color:var(--gold);font-size:18px;margin-bottom:12px}.grid{display:grid;grid-template-columns:repeat(6,1fr);gap:20px 16px}.product{text-align:center;border:1px solid transparent;border-radius:14px;padding:8px;cursor:pointer;transition:.15s}.iconbox{height:112px;background:rgba(246,189,36,.035);border-radius:14px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}.iconbox:before{content:"GZ";position:absolute;color:rgba(246,189,36,.06);font-size:62px;font-weight:1000}.bigicon{width:74px;height:74px;border-radius:18px;display:grid;place-items:center;font-weight:950;font-size:20px;position:relative;z-index:2;box-shadow:0 15px 40px rgba(0,0,0,.22),inset 0 0 24px rgba(255,255,255,.12)}.product h3{font-size:13px;margin-top:10px;min-height:30px}
+.recent,.cekbox,.features,.footer{background:#0f0f0f;border-top:1px solid #1d1d1d;border-bottom:1px solid #171717;margin-top:30px;padding:22px;border-radius:14px}.recent table{width:100%;border-collapse:collapse;background:#0b0b0b;border-radius:12px;overflow:hidden}.recent th,.recent td{padding:11px;border-bottom:1px solid #222;text-align:left;font-size:13px}.recent th{color:#ddd}.oid{color:#f6bd24;font-weight:950}.cekrow{display:grid;grid-template-columns:1fr auto;gap:10px;margin-top:12px}.input{width:100%;background:#070707;border:1px solid #202020;color:white;border-radius:999px;padding:13px 16px;outline:0}.goldbtn{background:var(--gold);border:0;border-radius:999px;color:#111;font-weight:950;padding:13px 18px}.muted{color:#888;font-size:13px;line-height:1.55}
+.detail{display:none}.detail.show{display:block}.home.hide{display:none}.back{margin:12px 0;background:#111;border:1px solid #252525;color:white;border-radius:999px;padding:10px 14px}.detailHero{min-height:310px;margin:0 -14px;background:linear-gradient(180deg,rgba(0,0,0,.15),#050505),var(--heroGrad);background-size:cover;background-position:center;display:flex;align-items:end;justify-content:center;text-align:center;padding:36px;border-bottom:1px solid #151515}.detailHero .round{width:96px;height:96px;border-radius:25px;margin:auto auto 12px;display:grid;place-items:center;font-size:28px;font-weight:950;box-shadow:0 0 45px rgba(246,189,36,.18),inset 0 0 30px rgba(255,255,255,.12)}.detailHero h1{font-size:30px}.detailHero p{font-size:13px;color:#ddd;max-width:720px;margin:8px auto 0}.stats{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0}.stat{border:1px solid #3b2e0d;background:#111;border-radius:999px;color:#ffd56b;padding:8px 10px;font-size:12px;font-weight:800}.layout{display:grid;grid-template-columns:1fr 360px;gap:28px;margin-top:20px}.itemTitle{font-size:18px;margin:12px 0}.items{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.item{background:#111;border:1px solid #232323;border-radius:11px;padding:16px;min-height:96px;cursor:pointer;position:relative}.item.active{border-color:var(--gold);box-shadow:0 0 0 1px #7d5b09}.item b{font-size:14px}.item span{display:block;color:#aaa;font-size:12px;margin-top:9px}.best{position:absolute;right:-4px;top:-4px;background:var(--gold);color:#111;font-size:10px;font-weight:950;padding:5px 9px;border-radius:0 10px 0 10px}.formPanel{display:flex;flex-direction:column;gap:16px}.box{background:#111;border:1px solid #1d1d1d;border-radius:13px;padding:18px}.box h3{font-size:15px;margin-bottom:10px}.box textarea.input{border-radius:14px;min-height:90px;resize:vertical}.payGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.paycard{background:#080808;border:1px solid #202020;border-radius:12px;padding:13px;cursor:pointer;display:flex;gap:10px;align-items:center}.paycard.active{border-color:var(--gold);box-shadow:0 0 0 1px #7d5b09}.paylogo{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;background:#161616;font-weight:950;color:#ffd56b}.summary{background:#080808;border:1px solid #202020;border-radius:12px;padding:13px;line-height:1.7;font-size:13px;margin-top:10px}.submit{width:100%;margin-top:12px;background:var(--gold);color:#111;border:0;border-radius:999px;padding:15px;font-weight:950}
+.side{position:fixed;left:-315px;top:0;bottom:0;width:305px;background:#050505;border-right:1px solid #171717;z-index:99;transition:.22s;padding:20px}.side.show{left:0}.slogo{text-align:center;font-weight:950;margin-bottom:24px}.sl{display:flex;gap:10px;align-items:center;padding:12px;border-radius:12px;color:#eee;font-size:14px}.sl.active,.sl:hover{background:linear-gradient(90deg,#3b2b05,#0d0d0d);color:#ffd15d}.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:98}.overlay.show{display:block}.wa{position:fixed;right:18px;bottom:18px;background:var(--gold);color:#111;border-radius:14px;padding:14px 18px;font-weight:950;z-index:70}.toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%);background:#111;border:1px solid #333;border-radius:999px;padding:12px 16px;display:none;z-index:200}.toast.show{display:block}.authModal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:150;align-items:center;justify-content:center;padding:16px}.authModal.show{display:flex}.modalBox{background:#101010;border:1px solid #2a2a2a;border-radius:18px;padding:18px;max-width:380px;width:100%}.modalBox h2{margin-bottom:12px}
+@media(max-width:880px){.search{min-width:0;flex:1}.auth{display:none}.hero{height:260px;padding:24px}.popular{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:repeat(3,1fr);gap:16px 10px}.layout{grid-template-columns:1fr}.items{grid-template-columns:1fr}.payGrid{grid-template-columns:1fr}.brand span{display:none}.detailHero{min-height:260px}.cekrow{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="overlay" id="overlay" onclick="toggleSide(false)"></div>
+<aside class="side" id="side">
+  <div class="slogo">GilangStore</div>
+  <a class="sl active" onclick="showHome();toggleSide(false)">🛒 Beli Produk</a>
+  <a class="sl" onclick="scrollToSection('cek')">🔍 Cek Pesanan</a>
+  <a class="sl" href="riwayat.html">📋 Riwayat Order</a>
+  <a class="sl" href="admin.html">🔐 Admin Panel</a>
+  <a class="sl" onclick="alert('Kalkulator ML bisa ditambah nanti')">🧮 Kalkulator ML</a>
+  <a class="sl" href="https://wa.me/6287886783807" target="_blank">🎧 Bantuan</a>
+</aside>
+
+<header class="top">
+  <button class="hamb" onclick="toggleSide(true)">☰</button>
+  <a class="brand" onclick="showHome()"><img src="gilz.png" onerror="this.style.display='none'"><span>GilangStore</span></a>
+  <div class="search"><input id="searchInput" placeholder="Cari Produk"><button onclick="searchProducts()">⌕</button></div>
+  <div class="auth"><button class="login" onclick="openAuth('login')">Masuk</button><button class="register" onclick="openAuth('signup')">Daftar</button></div>
+</header>
+
+<main class="wrap home" id="homePage">
+  <section class="hero">
+    <div>
+      <h1>Top Up Game &<br><span>Premium Apps</span></h1>
+      <p>Transaksi manual dulu. Pilih produk, isi data akun, pilih pembayaran, lalu order masuk ke admin panel.</p>
+      <div class="chips"><div class="chip">💰 Harga Terjangkau</div><div class="chip">💳 Pembayaran Manual</div><div class="chip">⚡ Proses Admin</div></div>
+    </div>
+  </section>
+  <h2 class="title">🔥 Terlaris</h2>
+  <section class="popular" id="popularGrid"></section>
+  <div class="catHead">KATEGORI PRODUK <b>Pilih Produk Kamu Disini</b></div>
+  <nav class="tabs" id="tabs"></nav>
+  <section id="productSections"></section>
+  <section class="cekbox" id="cek">
+    <h2>🔍 Cek Pesanan</h2>
+    <p class="muted">Masukkan Order ID kamu untuk melihat status pesanan.</p>
+    <div class="cekrow"><input class="input" id="trackInput" placeholder="Masukkan Order ID..."><button class="goldbtn" onclick="trackOrder()">Cari Pesanan</button></div>
+    <div class="summary" id="trackResult" style="display:none"></div>
+  </section>
+  <section class="recent">
+    <h2>10 Pesanan Terbaru <span id="liveText" style="float:right;color:#aaa;font-size:14px">Live</span></h2>
+    <table><thead><tr><th>Order ID</th><th>Kategori</th><th>Produk</th></tr></thead><tbody id="recentBody"><tr><td colspan="3">Memuat...</td></tr></tbody></table>
+  </section>
+</main>
+
+<main class="wrap detail" id="detailPage">
+  <button class="back" onclick="showHome()">← Kembali</button>
+  <section class="detailHero" id="detailHero">
+    <div><div class="round" id="detailIcon">GZ</div><h1 id="detailTitle">Produk</h1><p id="detailDesc">-</p></div>
+  </section>
+  <section class="layout">
+    <div>
+      <div class="stats"><span class="stat">🔥 Total Pesanan Sukses: 1.934</span><span class="stat">👁 19.373</span><span class="stat">⭐ 4.9 / 5</span></div>
+      <h2 class="itemTitle" id="itemTitle">Pilih Item</h2>
+      <div class="items" id="itemsGrid"></div>
+    </div>
+    <aside class="formPanel">
+      <div class="box">
+        <h3 id="targetTitle">Masukkan Data Akun</h3>
+        <input class="input" id="targetInput" placeholder="Email / User ID">
+        <input class="input" id="serverInput" placeholder="Server ID / Catatan">
+        <p class="muted" id="targetHint">Pastikan data benar.</p>
+      </div>
+      <div class="box">
+        <h3>Pilih Pembayaran (Manual)</h3>
+        <div class="payGrid" id="payGrid"></div>
+      </div>
+      <div class="box">
+        <h3>Konfirmasi Pembelian</h3>
+        <input class="input" id="contactInput" placeholder="Email / WhatsApp aktif">
+        <textarea class="input" id="noteInput" placeholder="Catatan tambahan"></textarea>
+        <div class="summary" id="summaryBox">Pilih item terlebih dahulu.</div>
+        <button class="submit" onclick="submitOrder()">Konfirmasi Pesanan →</button>
+      </div>
+    </aside>
+  </section>
+</main>
+
+<div class="authModal" id="authModal">
+  <div class="modalBox">
+    <h2 id="authTitle">Masuk</h2>
+    <input class="input" id="authEmail" type="email" placeholder="Email">
+    <input class="input" id="authPass" type="password" placeholder="Password">
+    <button class="submit" onclick="submitAuth()" id="authSubmit">Masuk</button>
+    <button class="back" onclick="closeAuth()">Tutup</button>
+    <p class="muted" id="authInfo">Login buyer opsional. Tanpa login tetap bisa order.</p>
+  </div>
+</div>
+
+<a class="wa" href="https://wa.me/6287886783807" target="_blank">🎧 Hubungi Kami</a>
+<div class="toast" id="toast">OK</div>
+
+<script type="module">
+import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
+const supabase = createClient("https://mijjgufgpzwzmrhnljmi.supabase.co", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1pampndWZncHp3em1yaG5sam1pIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkxODI5NjEsImV4cCI6MjA5NDc1ODk2MX0.426yzaQ_fr6s8Dk9jB_7gIBZP3lv8hKmu-UqlkcmzH4");
+const PRODUCTS = [{"id": "mobile-legends", "name": "Mobile Legends 🇮🇩", "category": "Games Mobile", "publisher": "Moonton", "icon": "ML", "color": "#d8b85a", "targetTitle": "Masukkan User ID", "targetPlaceholder": "User ID", "serverPlaceholder": "Server ID", "hint": "Pastikan User ID dan Server ID Mobile Legends benar.", "items": [["86 Diamonds", 20000], ["172 Diamonds", 38000], ["257 Diamonds", 56000], ["344 Diamonds", 74000], ["429 Diamonds", 91000], ["Weekly Pass", 28000], ["Starlight Member", 78000], ["Twilight Pass", 145000]]}, {"id": "free-fire", "name": "Free Fire", "category": "Games Mobile", "publisher": "Garena", "icon": "FF", "color": "#7c3aed", "targetTitle": "Masukkan Player ID", "targetPlaceholder": "Player ID Free Fire", "serverPlaceholder": "Server ID (kosongkan)", "hint": "Masukkan Player ID Free Fire dengan benar.", "items": [["70 Diamonds", 10000], ["140 Diamonds", 20000], ["355 Diamonds", 50000], ["720 Diamonds", 98000], ["Membership Mingguan", 29000], ["Membership Bulanan", 85000]]}, {"id": "roblox", "name": "Roblox", "category": "Games Mobile", "publisher": "Roblox Corporation", "icon": "⬛", "color": "#e5e7eb", "targetTitle": "Masukkan Username Roblox", "targetPlaceholder": "Username Roblox", "serverPlaceholder": "Catatan tambahan", "hint": "Masukkan username Roblox yang benar.", "items": [["80 Robux", 15000], ["400 Robux", 65000], ["800 Robux", 125000], ["1700 Robux", 255000]]}, {"id": "growtopia", "name": "Growtopia", "category": "Games Mobile", "publisher": "Ubisoft", "icon": "GT", "color": "#22c55e", "targetTitle": "Masukkan GrowID", "targetPlaceholder": "GrowID", "serverPlaceholder": "Catatan", "hint": "Masukkan GrowID akun Growtopia.", "items": [["World Lock 10", 9000], ["World Lock 50", 42000], ["Diamond Lock 1", 82000]]}, {"id": "crossfire", "name": "Crossfire: Legends", "category": "Games Mobile", "publisher": "Level Infinite", "icon": "CF", "color": "#9ca3af", "targetTitle": "Masukkan User ID", "targetPlaceholder": "User ID", "serverPlaceholder": "Server", "hint": "Masukkan data akun Crossfire.", "items": [["100 ZP Cash", 12000], ["300 ZP Cash", 33000], ["500 ZP Cash", 52000]]}, {"id": "delta-force", "name": "Delta Force", "category": "Games Mobile", "publisher": "TiMi J3 Studio", "icon": "△", "color": "#10b981", "targetTitle": "Masukkan User ID", "targetPlaceholder": "User ID", "serverPlaceholder": "Server", "hint": "Masukkan User ID Delta Force.", "items": [["60 Delta Coins", 15000], ["300 Delta Coins", 72000], ["680 Delta Coins", 150000]]}, {"id": "magic-chess", "name": "Magic Chess Go Go", "category": "Games Mobile", "publisher": "Vizta Games", "icon": "MC", "color": "#f59e0b", "targetTitle": "Masukkan User ID", "targetPlaceholder": "User ID", "serverPlaceholder": "Server", "hint": "Masukkan data akun Magic Chess.", "items": [["50 Diamonds", 12000], ["100 Diamonds", 23000], ["300 Diamonds", 68000]]}, {"id": "codm", "name": "Call of Duty Mobile", "category": "Games Mobile", "publisher": "Garena / Activision", "icon": "COD", "color": "#eab308", "targetTitle": "Masukkan OpenID", "targetPlaceholder": "OpenID / UID", "serverPlaceholder": "Server", "hint": "Masukkan UID CODM dengan benar.", "items": [["80 CP", 15000], ["420 CP", 75000], ["880 CP", 150000]]}, {"id": "dragon-nest", "name": "Dragon Nest M", "category": "Games Mobile", "publisher": "Zroad International", "icon": "DN", "color": "#fbbf24", "targetTitle": "Masukkan Character ID", "targetPlaceholder": "Character ID", "serverPlaceholder": "Server", "hint": "Masukkan data Dragon Nest M.", "items": [["300 Diamonds", 30000], ["680 Diamonds", 65000], ["1280 Diamonds", 120000]]}, {"id": "wuthering-waves", "name": "Wuthering Waves", "category": "Games Mobile", "publisher": "HK KURO", "icon": "WW", "color": "#94a3b8", "targetTitle": "Masukkan UID", "targetPlaceholder": "UID", "serverPlaceholder": "Server", "hint": "Masukkan UID Wuthering Waves.", "items": [["60 Lunites", 15000], ["300 Lunites", 75000], ["980 Lunites", 230000]]}, {"id": "zenless", "name": "Zenless Zone Zero", "category": "Games Mobile", "publisher": "HoYoverse", "icon": "ZZZ", "color": "#fb7185", "targetTitle": "Masukkan UID", "targetPlaceholder": "UID", "serverPlaceholder": "Server", "hint": "Masukkan UID ZZZ.", "items": [["60 Monochrome", 15000], ["300 Monochrome", 75000], ["980 Monochrome", 230000]]}, {"id": "sausage-man", "name": "Sausage Man", "category": "Games Mobile", "publisher": "XD Entertainment", "icon": "SM", "color": "#f97316", "targetTitle": "Masukkan User ID", "targetPlaceholder": "User ID", "serverPlaceholder": "Server", "hint": "Masukkan User ID Sausage Man.", "items": [["60 Candies", 15000], ["300 Candies", 72000], ["680 Candies", 150000]]}, {"id": "honkai-impact", "name": "Honkai Impact 3", "category": "Games Mobile", "publisher": "miHoYo", "icon": "HI3", "color": "#a78bfa", "targetTitle": "Masukkan UID", "targetPlaceholder": "UID", "serverPlaceholder": "Server", "hint": "Masukkan UID Honkai Impact 3.", "items": [["65 Crystals", 15000], ["330 Crystals", 75000], ["990 Crystals", 230000]]}, {"id": "black-clover", "name": "Black Clover M", "category": "Games Mobile", "publisher": "Garena", "icon": "BC", "color": "#111827", "targetTitle": "Masukkan AID", "targetPlaceholder": "AID", "serverPlaceholder": "Server", "hint": "Masukkan AID Black Clover M.", "items": [["120 Black Crystals", 18000], ["600 Black Crystals", 85000], ["1200 Black Crystals", 165000]]}, {"id": "fc-mobile", "name": "FC Mobile", "category": "Games Mobile", "publisher": "Electronic Arts", "icon": "FC", "color": "#0ea5e9", "targetTitle": "Masukkan User ID", "targetPlaceholder": "User ID", "serverPlaceholder": "Server", "hint": "Masukkan User ID FC Mobile.", "items": [["40 FC Points", 10000], ["100 FC Points", 25000], ["520 FC Points", 120000]]}, {"id": "pubg-mobile", "name": "PUBG Mobile", "category": "Games Mobile", "publisher": "Level Infinite", "icon": "PUBG", "color": "#d97706", "targetTitle": "Masukkan PUBG ID", "targetPlaceholder": "PUBG ID", "serverPlaceholder": "Server", "hint": "Masukkan PUBG Mobile ID.", "items": [["60 UC", 15000], ["325 UC", 75000], ["660 UC", 145000], ["1800 UC", 380000]]}, {"id": "honor-kings", "name": "Honor of Kings", "category": "Games Mobile", "publisher": "Level Infinite", "icon": "HOK", "color": "#facc15", "targetTitle": "Masukkan User ID", "targetPlaceholder": "User ID", "serverPlaceholder": "Server", "hint": "Masukkan data akun Honor of Kings.", "items": [["80 Tokens", 15000], ["400 Tokens", 72000], ["800 Tokens", 140000]]}, {"id": "super-sus", "name": "Super Sus", "category": "Games Mobile", "publisher": "PIProductions", "icon": "SS", "color": "#ef4444", "targetTitle": "Masukkan User ID", "targetPlaceholder": "User ID", "serverPlaceholder": "Server", "hint": "Masukkan User ID Super Sus.", "items": [["100 Goldstar", 12000], ["500 Goldstar", 55000], ["1000 Goldstar", 105000]]}, {"id": "honkai-star-rail", "name": "Honkai Star Rail", "category": "Games Mobile", "publisher": "COGNOSPHERE", "icon": "HSR", "color": "#60a5fa", "targetTitle": "Masukkan UID", "targetPlaceholder": "UID", "serverPlaceholder": "Server", "hint": "Masukkan UID Honkai Star Rail.", "items": [["60 Oneiric Shard", 15000], ["300 Oneiric Shard", 75000], ["980 Oneiric Shard", 230000]]}, {"id": "astral-guardians", "name": "Astral Guardians", "category": "Games Mobile", "publisher": "EYOUGAME", "icon": "AG", "color": "#ec4899", "targetTitle": "Masukkan Role ID", "targetPlaceholder": "Role ID", "serverPlaceholder": "Server", "hint": "Masukkan Role ID Astral Guardians.", "items": [["60 Diamonds", 12000], ["300 Diamonds", 58000], ["680 Diamonds", 130000]]}, {"id": "undawn", "name": "Garena Undawn", "category": "Games Mobile", "publisher": "Garena Mobile", "icon": "UD", "color": "#f97316", "targetTitle": "Masukkan User ID", "targetPlaceholder": "User ID", "serverPlaceholder": "Server", "hint": "Masukkan User ID Undawn.", "items": [["80 RC", 15000], ["400 RC", 72000], ["800 RC", 140000]]}, {"id": "blood-strike", "name": "Blood Strike", "category": "Games Mobile", "publisher": "NetEase", "icon": "BS", "color": "#ef4444", "targetTitle": "Masukkan User ID", "targetPlaceholder": "User ID", "serverPlaceholder": "Server", "hint": "Masukkan User ID Blood Strike.", "items": [["100 Gold", 12000], ["500 Gold", 56000], ["1000 Gold", 110000]]}, {"id": "arena-breakout", "name": "Arena Breakout", "category": "Games Mobile", "publisher": "Level Infinite", "icon": "AB", "color": "#71717a", "targetTitle": "Masukkan User ID", "targetPlaceholder": "User ID", "serverPlaceholder": "Server", "hint": "Masukkan User ID Arena Breakout.", "items": [["60 Bonds", 15000], ["300 Bonds", 72000], ["600 Bonds", 140000]]}, {"id": "genshin", "name": "Genshin Impact", "category": "Games Mobile", "publisher": "miHoYo", "icon": "GI", "color": "#a78bfa", "targetTitle": "Masukkan UID", "targetPlaceholder": "UID", "serverPlaceholder": "Server", "hint": "Masukkan UID Genshin Impact.", "items": [["60 Genesis Crystal", 15000], ["300 Genesis Crystal", 75000], ["980 Genesis Crystal", 230000], ["Welkin Moon", 75000]]}, {"id": "bank", "name": "Transfer Bank", "category": "E-Wallet", "publisher": "BI-FAST", "icon": "🏦", "color": "#f8fafc", "targetTitle": "Masukkan Rekening Tujuan", "targetPlaceholder": "Nomor rekening / nama bank", "serverPlaceholder": "Nama penerima", "hint": "Isi data rekening tujuan.", "items": [["Transfer 10.000", 11000], ["Transfer 25.000", 26000], ["Transfer 50.000", 51000], ["Transfer 100.000", 101000]]}, {"id": "gopay", "name": "Saldo GoPay", "category": "E-Wallet", "publisher": "PT.GoTo", "icon": "GP", "color": "#38bdf8", "targetTitle": "Nomor GoPay", "targetPlaceholder": "Nomor GoPay", "serverPlaceholder": "Nama akun", "hint": "Isi nomor GoPay aktif.", "items": [["GoPay 10.000", 11000], ["GoPay 25.000", 26000], ["GoPay 50.000", 51000], ["GoPay 100.000", 101000]]}, {"id": "kaspro", "name": "Saldo Kaspro", "category": "E-Wallet", "publisher": "Solusi Pasti Indonesia", "icon": "KP", "color": "#c084fc", "targetTitle": "Nomor Kaspro", "targetPlaceholder": "Nomor Kaspro", "serverPlaceholder": "Nama akun", "hint": "Isi nomor Kaspro aktif.", "items": [["Kaspro 10.000", 11000], ["Kaspro 25.000", 26000], ["Kaspro 50.000", 51000]]}, {"id": "astrapay", "name": "Saldo AstraPay", "category": "E-Wallet", "publisher": "PT Astra Digital Arta", "icon": "AP", "color": "#38bdf8", "targetTitle": "Nomor AstraPay", "targetPlaceholder": "Nomor AstraPay", "serverPlaceholder": "Nama akun", "hint": "Isi nomor AstraPay aktif.", "items": [["AstraPay 10.000", 11000], ["AstraPay 25.000", 26000], ["AstraPay 50.000", 51000]]}, {"id": "doku", "name": "Saldo Doku", "category": "E-Wallet", "publisher": "PT Nusa Satu Inti", "icon": "DK", "color": "#ef4444", "targetTitle": "Nomor Doku", "targetPlaceholder": "Nomor Doku", "serverPlaceholder": "Nama akun", "hint": "Isi nomor Doku aktif.", "items": [["Doku 10.000", 11000], ["Doku 25.000", 26000], ["Doku 50.000", 51000]]}, {"id": "isaku", "name": "Saldo i.saku", "category": "E-Wallet", "publisher": "Inti Dunia Sukses", "icon": "IS", "color": "#0ea5e9", "targetTitle": "Nomor i.saku", "targetPlaceholder": "Nomor i.saku", "serverPlaceholder": "Nama akun", "hint": "Isi nomor i.saku aktif.", "items": [["i.saku 10.000", 11000], ["i.saku 25.000", 26000], ["i.saku 50.000", 51000]]}, {"id": "dana", "name": "Saldo DANA", "category": "E-Wallet", "publisher": "PT Espay Debit", "icon": "DANA", "color": "#3b82f6", "targetTitle": "Nomor DANA", "targetPlaceholder": "Nomor DANA", "serverPlaceholder": "Nama akun", "hint": "Isi nomor DANA aktif.", "items": [["DANA 10.000", 11000], ["DANA 25.000", 26000], ["DANA 50.000", 51000], ["DANA 100.000", 101000]]}, {"id": "shopeepay", "name": "Saldo ShopeePay", "category": "E-Wallet", "publisher": "Shopee", "icon": "SP", "color": "#f97316", "targetTitle": "Nomor ShopeePay", "targetPlaceholder": "Nomor ShopeePay", "serverPlaceholder": "Nama akun", "hint": "Isi nomor ShopeePay aktif.", "items": [["ShopeePay 10.000", 11000], ["ShopeePay 25.000", 26000], ["ShopeePay 50.000", 51000]]}, {"id": "ovo", "name": "Saldo OVO", "category": "E-Wallet", "publisher": "PT Visionet", "icon": "OVO", "color": "#7c3aed", "targetTitle": "Nomor OVO", "targetPlaceholder": "Nomor OVO", "serverPlaceholder": "Nama akun", "hint": "Isi nomor OVO aktif.", "items": [["OVO 10.000", 11000], ["OVO 25.000", 26000], ["OVO 50.000", 51000], ["OVO 100.000", 101000]]}, {"id": "linkaja", "name": "Saldo LinkAja", "category": "E-Wallet", "publisher": "PT Fintek Karya", "icon": "LA", "color": "#ef4444", "targetTitle": "Nomor LinkAja", "targetPlaceholder": "Nomor LinkAja", "serverPlaceholder": "Nama akun", "hint": "Isi nomor LinkAja aktif.", "items": [["LinkAja 10.000", 11000], ["LinkAja 25.000", 26000], ["LinkAja 50.000", 51000]]}, {"id": "pointblank", "name": "Point Blank", "category": "Games PC", "publisher": "Zepetto", "icon": "PB", "color": "#64748b", "targetTitle": "Masukkan ID Point Blank", "targetPlaceholder": "ID Point Blank", "serverPlaceholder": "Server", "hint": "Masukkan ID Point Blank.", "items": [["PB Cash 1.200", 12000], ["PB Cash 6.000", 55000], ["PB Cash 12.000", 105000]]}, {"id": "valorant", "name": "Valorant", "category": "Games PC", "publisher": "Riot Games", "icon": "V", "color": "#ef4444", "targetTitle": "Masukkan Riot ID", "targetPlaceholder": "Riot ID#Tag", "serverPlaceholder": "Region", "hint": "Masukkan Riot ID dan region.", "items": [["125 VP", 15000], ["420 VP", 50000], ["700 VP", 80000], ["1375 VP", 150000]]}, {"id": "smartfren", "name": "Smartfren", "category": "Kuota & Pulsa", "publisher": "PT Smartfren Telecom", "icon": "SF", "color": "#f8fafc", "targetTitle": "Nomor Smartfren", "targetPlaceholder": "Nomor HP", "serverPlaceholder": "Catatan", "hint": "Isi nomor Smartfren.", "items": [["Pulsa 10.000", 11000], ["Pulsa 25.000", 26000], ["Kuota 3GB", 18000], ["Kuota 10GB", 45000]]}, {"id": "byu", "name": "by.U", "category": "Kuota & Pulsa", "publisher": "by.U", "icon": "by.U", "color": "#38bdf8", "targetTitle": "Nomor by.U", "targetPlaceholder": "Nomor HP", "serverPlaceholder": "Catatan", "hint": "Isi nomor by.U.", "items": [["Pulsa 10.000", 11000], ["Pulsa 25.000", 26000], ["Kuota 3GB", 18000], ["Kuota 10GB", 45000]]}, {"id": "tri", "name": "Tri", "category": "Kuota & Pulsa", "publisher": "Indosat Ooredoo", "icon": "3", "color": "#f8fafc", "targetTitle": "Nomor Tri", "targetPlaceholder": "Nomor HP", "serverPlaceholder": "Catatan", "hint": "Isi nomor Tri.", "items": [["Pulsa 10.000", 11000], ["Pulsa 25.000", 26000], ["Kuota 3GB", 17000], ["Kuota 10GB", 43000]]}, {"id": "telkomsel", "name": "Telkomsel", "category": "Kuota & Pulsa", "publisher": "Telkom Indonesia", "icon": "T", "color": "#ef4444", "targetTitle": "Nomor Telkomsel", "targetPlaceholder": "Nomor HP", "serverPlaceholder": "Catatan", "hint": "Isi nomor Telkomsel.", "items": [["Pulsa 10.000", 11000], ["Pulsa 25.000", 26000], ["Kuota 3GB", 20000], ["Kuota 10GB", 55000]]}, {"id": "indosat", "name": "Indosat / IM3", "category": "Kuota & Pulsa", "publisher": "Indosat Ooredoo", "icon": "IM3", "color": "#facc15", "targetTitle": "Nomor Indosat", "targetPlaceholder": "Nomor HP", "serverPlaceholder": "Catatan", "hint": "Isi nomor Indosat/IM3.", "items": [["Pulsa 10.000", 11000], ["Pulsa 25.000", 26000], ["Kuota 3GB", 18000], ["Kuota 10GB", 47000]]}, {"id": "axis", "name": "Axis", "category": "Kuota & Pulsa", "publisher": "XL Axiata", "icon": "AXIS", "color": "#a855f7", "targetTitle": "Nomor Axis", "targetPlaceholder": "Nomor HP", "serverPlaceholder": "Catatan", "hint": "Isi nomor Axis.", "items": [["Pulsa 10.000", 11000], ["Pulsa 25.000", 26000], ["Kuota 3GB", 17000], ["Kuota 10GB", 43000]]}, {"id": "xl", "name": "XL", "category": "Kuota & Pulsa", "publisher": "XL Axiata", "icon": "XL", "color": "#0ea5e9", "targetTitle": "Nomor XL", "targetPlaceholder": "Nomor HP", "serverPlaceholder": "Catatan", "hint": "Isi nomor XL.", "items": [["Pulsa 10.000", 11000], ["Pulsa 25.000", 26000], ["Kuota 3GB", 18000], ["Kuota 10GB", 47000]]}, {"id": "pln", "name": "Token PLN", "category": "Voucher", "publisher": "PLN", "icon": "PLN", "color": "#38bdf8", "targetTitle": "Nomor Meter / ID Pelanggan", "targetPlaceholder": "Nomor meter / ID Pelanggan", "serverPlaceholder": "Nama pelanggan", "hint": "Isi nomor meter/ID pelanggan PLN.", "items": [["Token PLN 20.000", 21000], ["Token PLN 50.000", 51000], ["Token PLN 100.000", 101000]]}, {"id": "pb-via", "name": "Point Blank (Via ID)", "category": "Voucher", "publisher": "Zepetto", "icon": "PB", "color": "#64748b", "targetTitle": "ID Point Blank", "targetPlaceholder": "ID Point Blank", "serverPlaceholder": "Catatan", "hint": "Masukkan ID Point Blank.", "items": [["PB Cash 1.200", 12000], ["PB Cash 6.000", 55000], ["PB Cash 12.000", 105000]]}, {"id": "steam", "name": "Steam Wallet (IDR)", "category": "Voucher", "publisher": "Valve", "icon": "STEAM", "color": "#60a5fa", "targetTitle": "Email / Steam ID", "targetPlaceholder": "Email / Steam ID", "serverPlaceholder": "Catatan", "hint": "Masukkan akun Steam.", "items": [["Steam Wallet 12.000", 13000], ["Steam Wallet 45.000", 47000], ["Steam Wallet 90.000", 92000]]}, {"id": "google-play", "name": "Voucher Google Play", "category": "Voucher", "publisher": "Google", "icon": "GP", "color": "#22c55e", "targetTitle": "Email Penerima", "targetPlaceholder": "Email", "serverPlaceholder": "Catatan", "hint": "Masukkan email penerima voucher.", "items": [["Google Play 20.000", 22000], ["Google Play 50.000", 52000], ["Google Play 100.000", 102000]]}, {"id": "pubg-id", "name": "PUBG Mobile ID", "category": "Voucher", "publisher": "Level Infinite", "icon": "PUBG", "color": "#d97706", "targetTitle": "PUBG ID", "targetPlaceholder": "PUBG ID", "serverPlaceholder": "Server", "hint": "Masukkan PUBG ID.", "items": [["60 UC", 15000], ["325 UC", 75000], ["660 UC", 145000]]}, {"id": "zoom", "name": "Zoom", "category": "Aplikasi Premium", "publisher": "Zoom.com", "icon": "ZOOM", "color": "#3b82f6", "targetTitle": "Email Akun Zoom", "targetPlaceholder": "Email Zoom", "serverPlaceholder": "Catatan", "hint": "Masukkan email akun Zoom.", "items": [["Zoom Pro 1 Bulan", 15000], ["Zoom Pro 3 Bulan", 40000], ["Zoom Pro 1 Tahun", 120000]]}, {"id": "wink", "name": "Wink", "category": "Aplikasi Premium", "publisher": "Meitu", "icon": "W", "color": "#f8fafc", "targetTitle": "Email Akun Wink", "targetPlaceholder": "Email", "serverPlaceholder": "Catatan", "hint": "Masukkan email akun Wink.", "items": [["Wink Premium 7 Hari", 8000], ["Wink Premium 14 Hari", 15000], ["Wink Premium 1 Bulan", 22000]]}, {"id": "vidio", "name": "Vidio", "category": "Aplikasi Premium", "publisher": "PT Vidio Dot Com", "icon": "Vidio", "color": "#ef4444", "targetTitle": "Email / Nomor Vidio", "targetPlaceholder": "Email / Nomor", "serverPlaceholder": "Catatan", "hint": "Masukkan akun Vidio.", "items": [["Vidio Premier 1 Bulan", 10000], ["Vidio Premier 2 Bulan", 19000], ["Vidio Premier 3 Bulan", 27000]]}, {"id": "surfshark", "name": "VPN Surfshark", "category": "Aplikasi Premium", "publisher": "Surfshark", "icon": "S", "color": "#14b8a6", "targetTitle": "Email Akun", "targetPlaceholder": "Email", "serverPlaceholder": "Catatan", "hint": "Masukkan email akun.", "items": [["Surfshark 1 Bulan", 18000], ["Surfshark 3 Bulan", 50000], ["Surfshark 1 Tahun", 150000]]}, {"id": "expressvpn", "name": "ExpressVPN", "category": "Aplikasi Premium", "publisher": "ExpressVPN", "icon": "EVPN", "color": "#ef4444", "targetTitle": "Email Akun", "targetPlaceholder": "Email", "serverPlaceholder": "Catatan", "hint": "Masukkan email akun.", "items": [["ExpressVPN 1 Bulan", 20000], ["ExpressVPN 3 Bulan", 55000], ["ExpressVPN 1 Tahun", 170000]]}, {"id": "wetv", "name": "WeTV", "category": "Aplikasi Premium", "publisher": "Image Future", "icon": "WeTV", "color": "#22c55e", "targetTitle": "Email / Nomor WeTV", "targetPlaceholder": "Email / Nomor", "serverPlaceholder": "Catatan", "hint": "Masukkan akun WeTV.", "items": [["WeTV Premium 1 Bulan", 10000], ["WeTV Premium 2 Bulan", 19000], ["WeTV Premium 3 Bulan", 27000]]}, {"id": "alight", "name": "Alight Motion", "category": "Aplikasi Premium", "publisher": "Alight Motion", "icon": "AM", "color": "#22c55e", "targetTitle": "Email Akun Alight", "targetPlaceholder": "Email", "serverPlaceholder": "Catatan", "hint": "Masukkan email akun Alight Motion.", "items": [["Alight Motion 1 Bulan", 12000], ["Alight Motion 2 Bulan", 23000], ["Alight Motion 3 Bulan", 33000]]}, {"id": "iqiyi", "name": "iQIYI Premium", "category": "Aplikasi Premium", "publisher": "iQIYI", "icon": "iQIYI", "color": "#22c55e", "targetTitle": "Email / Nomor iQIYI", "targetPlaceholder": "Email / Nomor", "serverPlaceholder": "Catatan", "hint": "Masukkan akun iQIYI.", "items": [["iQIYI 1 Bulan", 10000], ["iQIYI 2 Bulan", 19000], ["iQIYI 3 Bulan", 27000]]}, {"id": "youtube", "name": "YouTube Premium", "category": "Aplikasi Premium", "publisher": "Google LLC", "icon": "YT", "color": "#ef4444", "targetTitle": "Email Akun YouTube", "targetPlaceholder": "Email Google", "serverPlaceholder": "Catatan", "hint": "Masukkan email Google/YouTube.", "items": [["YouTube Premium 1 Bulan", 4000], ["YouTube Premium 2 Bulan", 7500], ["YouTube Premium 3 Bulan", 11000]]}, {"id": "prime", "name": "Prime Video", "category": "Aplikasi Premium", "publisher": "Amazon", "icon": "PV", "color": "#38bdf8", "targetTitle": "Email Akun Prime", "targetPlaceholder": "Email", "serverPlaceholder": "Catatan", "hint": "Masukkan email akun Prime Video.", "items": [["Prime Video 1 Bulan", 12000], ["Prime Video 2 Bulan", 23000], ["Prime Video 3 Bulan", 33000]]}, {"id": "jasper", "name": "Jasper AI", "category": "Aplikasi Premium", "publisher": "Appvantage", "icon": "AI", "color": "#a78bfa", "targetTitle": "Email Akun Jasper", "targetPlaceholder": "Email", "serverPlaceholder": "Catatan", "hint": "Masukkan email akun Jasper.", "items": [["Jasper AI 7 Hari", 15000], ["Jasper AI 1 Bulan", 50000]]}, {"id": "hma", "name": "HMA VPN", "category": "Aplikasi Premium", "publisher": "Privax", "icon": "HMA", "color": "#9ca3af", "targetTitle": "Email Akun HMA", "targetPlaceholder": "Email", "serverPlaceholder": "Catatan", "hint": "Masukkan email akun HMA.", "items": [["HMA VPN 1 Bulan", 15000], ["HMA VPN 3 Bulan", 40000]]}, {"id": "bstation", "name": "Bstation", "category": "Aplikasi Premium", "publisher": "BALABOOM", "icon": "B", "color": "#38bdf8", "targetTitle": "Email / Nomor Bstation", "targetPlaceholder": "Email / Nomor", "serverPlaceholder": "Catatan", "hint": "Masukkan akun Bstation.", "items": [["Bstation 1 Bulan", 10000], ["Bstation 2 Bulan", 19000], ["Bstation 3 Bulan", 27000]]}, {"id": "picsart", "name": "Picsart", "category": "Aplikasi Premium", "publisher": "PicsArt Inc", "icon": "Picsart", "color": "#ec4899", "targetTitle": "Email Akun Picsart", "targetPlaceholder": "Email", "serverPlaceholder": "Catatan", "hint": "Masukkan email akun Picsart.", "items": [["Picsart 1 Bulan", 12000], ["Picsart 2 Bulan", 23000], ["Picsart 3 Bulan", 33000]]}, {"id": "capcut", "name": "CapCut", "category": "Aplikasi Premium", "publisher": "Bytedance", "icon": "CC", "color": "#f8fafc", "targetTitle": "Email Akun CapCut", "targetPlaceholder": "Email", "serverPlaceholder": "Catatan", "hint": "Masukkan email akun CapCut.", "items": [["CapCut Pro 1 Bulan", 5000], ["CapCut Pro 2 Bulan", 9000], ["CapCut Pro 3 Bulan", 13000]]}, {"id": "canva", "name": "Canva", "category": "Aplikasi Premium", "publisher": "Canva", "icon": "C", "color": "#22d3ee", "targetTitle": "Email Akun Canva", "targetPlaceholder": "Email Canva", "serverPlaceholder": "Catatan", "hint": "Masukkan email Canva yang tertaut.", "items": [["Canva Pro Designer 1 Bulan", 2350], ["Canva Pro Anggota 1 Bulan", 1350], ["Canva Pro Anggota 2 Bulan", 2050], ["Canva Education 1 Tahun", 11300]]}, {"id": "viu", "name": "Viu Premium", "category": "Aplikasi Premium", "publisher": "Vuclip", "icon": "VIU", "color": "#facc15", "targetTitle": "Email / Nomor Viu", "targetPlaceholder": "Email / Nomor", "serverPlaceholder": "Catatan", "hint": "Masukkan akun Viu.", "items": [["Viu Premium 1 Bulan", 10000], ["Viu Premium 2 Bulan", 19000], ["Viu Premium 3 Bulan", 27000]]}];
+const PAYMENTS = [
+  ["DANA","DANA"],["OVO","OVO"],["GoPay","GP"],["QRIS","QR"],["Transfer Bank","🏦"]
+];
+let selectedProduct=null, selectedItem=null, selectedPayment="DANA", authMode="login", currentUser=null;
+
+const $ = id => document.getElementById(id);
+const rupiah = n => "Rp " + Number(n||0).toLocaleString("id-ID");
+function toast(m){ const t=$("toast"); t.textContent=m; t.classList.add("show"); setTimeout(()=>t.classList.remove("show"),1900); }
+window.toggleSide = s => { $("side").classList.toggle("show",s); $("overlay").classList.toggle("show",s); };
+window.scrollToSection = id => { showHome(); setTimeout(()=>document.getElementById(id)?.scrollIntoView({behavior:"smooth"}),100); toggleSide(false); };
+function mask(id){ id=String(id||"-"); return id.length>8 ? id.slice(0,4)+"******"+id.slice(-4) : id; }
+function icon(p, small=false){ return `<div class="${small?'logoicon':'bigicon'}" style="background:linear-gradient(135deg,${p.color},#111)">${p.icon}</div>`; }
+
+window.showHome = () => { $("homePage").classList.remove("hide"); $("detailPage").classList.remove("show"); history.replaceState(null,"","#"); window.scrollTo(0,0); };
+function popCard(p){ return `<article class="pop" onclick="openProduct('${p.id}')">${icon(p,true)}<div><b>${p.name}</b><span>${p.publisher}</span></div></article>`; }
+function productCard(p){ return `<article class="product" onclick="openProduct('${p.id}')"><div class="iconbox">${icon(p)}</div><h3>${p.name}</h3><p>${p.publisher}</p></article>`; }
+window.renderHome = (filter="Semua") => {
+  const cats=["Semua",...new Set(PRODUCTS.map(p=>p.category))];
+  $("tabs").innerHTML=cats.map(c=>`<button class="tab ${c===filter?'active':''}" onclick="renderHome('${c}')">${c}</button>`).join("");
+  $("popularGrid").innerHTML=PRODUCTS.slice(0,8).map(popCard).join("");
+  const show = filter==="Semua" ? [...new Set(PRODUCTS.map(p=>p.category))] : [filter];
+  $("productSections").innerHTML = show.map(cat => `<section class="block"><h2>${cat}</h2><div class="grid">${PRODUCTS.filter(p=>p.category===cat).map(productCard).join("")}</div></section>`).join("");
+};
+window.searchProducts = () => {
+  const q=$("searchInput").value.toLowerCase().trim();
+  if(!q) return renderHome();
+  const list=PRODUCTS.filter(p => (p.name+" "+p.category+" "+p.publisher).toLowerCase().includes(q));
+  $("tabs").innerHTML="";
+  $("productSections").innerHTML=`<section class="block"><h2>Hasil Pencarian</h2><div class="grid">${list.map(productCard).join("")}</div></section>`;
+};
+
+window.openProduct = id => {
+  selectedProduct=PRODUCTS.find(p=>p.id===id); selectedItem=null; selectedPayment="DANA";
+  if(!selectedProduct) return;
+  $("homePage").classList.add("hide"); $("detailPage").classList.add("show");
+  $("detailIcon").outerHTML = icon(selectedProduct);
+  $("detailTitle").textContent = selectedProduct.name;
+  $("detailDesc").textContent = selectedProduct.hint;
+  $("detailHero").style.setProperty("--heroGrad", `linear-gradient(120deg,${selectedProduct.color}33,#050505 65%)`);
+  $("targetTitle").textContent = selectedProduct.targetTitle || "Masukkan Data";
+  $("targetInput").placeholder = selectedProduct.targetPlaceholder || "Email / User ID";
+  $("serverInput").placeholder = selectedProduct.serverPlaceholder || "Server ID / Catatan";
+  $("targetHint").textContent = selectedProduct.hint || "Pastikan data benar.";
+  $("itemTitle").textContent = selectedProduct.category === "Aplikasi Premium" ? "Pilih Paket" : "Pilih Nominal";
+  $("itemsGrid").innerHTML = selectedProduct.items.map((it,i)=>`<div class="item" onclick="selectItem(${i})"><b>${it[0]}</b><span>${rupiah(it[1])}</span>${i===0?'<div class="best">Best Price</div>':''}</div>`).join("");
+  $("payGrid").innerHTML = PAYMENTS.map((p,i)=>`<div class="paycard ${i===0?'active':''}" onclick="selectPayment('${p[0]}', this)"><div class="paylogo">${p[1]}</div><div><b>${p[0]}</b><p class="muted">Manual</p></div></div>`).join("");
+  $("summaryBox").innerHTML="Pilih item terlebih dahulu.";
+  window.scrollTo(0,0);
+};
+window.selectItem = i => {
+  selectedItem = selectedProduct.items[i];
+  document.querySelectorAll(".item").forEach((el,idx)=>el.classList.toggle("active",idx===i));
+  updateSummary();
+};
+window.selectPayment = (p, el) => {
+  selectedPayment=p; document.querySelectorAll(".paycard").forEach(x=>x.classList.remove("active")); el.classList.add("active"); updateSummary();
+};
+function updateSummary(){
+  if(!selectedItem) return $("summaryBox").innerHTML="Pilih item terlebih dahulu.";
+  $("summaryBox").innerHTML=`Produk: <b>${selectedProduct.name}</b><br>Item: <b>${selectedItem[0]}</b><br>Pembayaran: <b>${selectedPayment}</b><br>Total: <b>${rupiah(selectedItem[1])}</b>`;
+}
+window.submitOrder = async () => {
+  if(!selectedProduct || !selectedItem) return toast("Pilih item dulu");
+  const target=$("targetInput").value.trim(), server=$("serverInput").value.trim(), contact=$("contactInput").value.trim(), note=$("noteInput").value.trim();
+  if(!target || !contact) return toast("Data akun dan kontak wajib diisi");
+  const oid="GLZ-"+new Date().toISOString().slice(0,10).replaceAll("-","")+"-"+Math.floor(1000+Math.random()*9000);
+  const payload = {
+    order_id: oid, produk: selectedProduct.name, paket: selectedItem[0], total: selectedItem[1],
+    payment: selectedPayment, buyer_contact: contact,
+    catatan: `Target: ${target} | Server/Catatan: ${server||"-"} | Note: ${note||"-"}`,
+    status:"menunggu_pembayaran", user_id: currentUser?.id || null
+  };
+  const { error } = await supabase.from("orders").insert(payload);
+  if(error) return alert("Gagal masuk database: " + error.message);
+  alert("Order berhasil dibuat!\nOrder ID: " + oid + "\nSilakan bayar manual lalu hubungi admin.");
+  $("targetInput").value=""; $("serverInput").value=""; $("contactInput").value=""; $("noteInput").value="";
+  loadRecent(); toast("Order masuk admin ✅");
+};
+
+window.trackOrder = async () => {
+  const id=$("trackInput").value.trim(); if(!id) return toast("Masukkan Order ID");
+  const {data,error} = await supabase.from("orders").select("*").eq("order_id", id).maybeSingle();
+  const box=$("trackResult"); box.style.display="block";
+  if(error || !data) return box.innerHTML="Order tidak ditemukan.";
+  box.innerHTML=`Order ID: <b>${data.order_id}</b><br>Produk: <b>${data.produk}</b><br>Paket: <b>${data.paket}</b><br>Total: <b>${rupiah(data.total)}</b><br>Status: <b>${data.status}</b>`;
+};
+async function loadRecent(){
+  try{
+    const {data,error}=await supabase.from("orders").select("order_id,produk,status,created_at").order("created_at",{ascending:false}).limit(10);
+    if(error) throw error;
+    $("liveText").textContent = "Update " + new Date().toLocaleTimeString("id-ID",{hour:"2-digit",minute:"2-digit"});
+    $("recentBody").innerHTML = (data||[]).length ? data.map(r=>`<tr><td class="oid">${mask(r.order_id)}</td><td>${r.status||"-"}</td><td>${r.produk||"-"}</td></tr>`).join("") : `<tr><td colspan="3">Belum ada pesanan.</td></tr>`;
+  }catch(e){ console.error(e); $("recentBody").innerHTML=`<tr><td colspan="3">Gagal memuat pesanan.</td></tr>`; }
+}
+function startRealtime(){
+  loadRecent();
+  supabase.channel("orders-live-final").on("postgres_changes",{event:"*",schema:"public",table:"orders"},loadRecent).subscribe();
+  setInterval(loadRecent,15000);
+}
+window.openAuth = mode => { authMode=mode; $("authTitle").textContent=mode==="signup"?"Daftar Akun":"Masuk Akun"; $("authSubmit").textContent=mode==="signup"?"Daftar":"Masuk"; $("authModal").classList.add("show"); };
+window.closeAuth = () => $("authModal").classList.remove("show");
+window.submitAuth = async () => {
+  const email=$("authEmail").value.trim(), password=$("authPass").value;
+  if(!email||!password) return toast("Email dan password wajib");
+  const res = authMode==="signup" ? await supabase.auth.signUp({email,password}) : await supabase.auth.signInWithPassword({email,password});
+  if(res.error) return alert("Auth gagal: " + res.error.message);
+  currentUser = res.data.user || res.data.session?.user || null; closeAuth(); toast(authMode==="signup"?"Akun dibuat ✅":"Login berhasil ✅");
+};
+supabase.auth.getSession().then(({data})=>{ currentUser=data.session?.user||null; });
+supabase.auth.onAuthStateChange((_e,session)=>{ currentUser=session?.user||null; });
+
+async function applyAdminEditsFromSupabase(){
+  try{
+    const {data,error}=await supabase
+      .from("products")
+      .select("id,slug,name,category,product_type,icon,image_url,description,status,sort_order,product_options(option_name,price,status,sort_order)")
+      .neq("status","nonaktif")
+      .order("sort_order",{ascending:true})
+      .order("sort_order",{foreignTable:"product_options",ascending:true});
+    if(error || !Array.isArray(data) || data.length===0){
+      console.warn("[GilangStore] Data admin belum ada / belum bisa dibaca, pakai produk bawaan index.", error?.message || "");
+      return;
+    }
+    const bySlug = Object.fromEntries(PRODUCTS.map(p=>[p.id,p]));
+    for(const row of data){
+      const slug = row.slug || row.id;
+      const activeOptions = (row.product_options || [])
+        .filter(o => o.status !== "nonaktif")
+        .sort((a,b)=>(a.sort_order||0)-(b.sort_order||0))
+        .map(o => [o.option_name, Number(o.price||0)]);
+      let p = bySlug[slug];
+      if(!p){
+        p = {
+          id: slug,
+          name: row.name || slug,
+          category: row.category || (row.product_type === "topup" ? "Games Mobile" : "Aplikasi Premium"),
+          publisher: "GilangStore",
+          icon: row.icon || "GS",
+          color: "#f6bd24",
+          targetTitle: row.product_type === "topup" ? "Masukkan User ID" : "Masukkan Email / Akun",
+          targetPlaceholder: row.product_type === "topup" ? "User ID / Nomor Tujuan" : "Email / Akun",
+          serverPlaceholder: "Server / Catatan",
+          hint: row.description || "Pastikan data benar.",
+          items: activeOptions.length ? activeOptions : [["1 Bulan",0]]
+        };
+        PRODUCTS.push(p);
+        bySlug[slug] = p;
+      }else{
+        if(row.name) p.name = row.name;
+        if(row.category) p.category = row.category;
+        if(row.icon && !String(row.icon).includes(".")) p.icon = row.icon;
+        if(row.description) p.hint = row.description;
+        if(activeOptions.length) p.items = activeOptions;
+      }
+    }
+    window.GILANGSTORE_PRODUCTS = PRODUCTS;
+    console.log("[GilangStore] Produk berhasil disinkron dari admin panel.");
+  }catch(e){
+    console.warn("[GilangStore] Gagal sinkron admin, produk bawaan index tetap dipakai.", e);
+  }
+}
+await applyAdminEditsFromSupabase();
+renderHome(); startRealtime();
+</script>
+</body>
+</html>

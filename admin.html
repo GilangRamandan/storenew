@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin GilangStore</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="./supabase-config.js"></script>
+  <style>
+    :root{--bg:#07111f;--card:#0f1b2f;--soft:#172842;--line:#26405f;--text:#edf6ff;--muted:#94a8c4;--blue:#4f9cff;--cyan:#30f0ff;--danger:#ff5d78;--ok:#2ee59d;--warn:#ffd166}
+    *{box-sizing:border-box} body{margin:0;font-family:Inter,system-ui,Arial,sans-serif;background:radial-gradient(circle at top,#143258 0,#07111f 45%,#050914 100%);color:var(--text)}
+    a{color:inherit}.wrap{max-width:1180px;margin:auto;padding:18px}.top{display:flex;gap:12px;align-items:center;justify-content:space-between;margin-bottom:18px}.brand{display:flex;gap:12px;align-items:center}.logo{width:46px;height:46px;border-radius:16px;background:linear-gradient(135deg,var(--blue),var(--cyan));display:grid;place-items:center;font-weight:900;color:#001225}.card{background:rgba(15,27,47,.82);border:1px solid rgba(255,255,255,.08);box-shadow:0 20px 80px rgba(0,0,0,.35);border-radius:24px;padding:16px}.grid{display:grid;grid-template-columns:1.05fr 1.25fr;gap:16px}.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}label{font-size:12px;color:var(--muted);display:block;margin:10px 0 6px}input,select,textarea{width:100%;background:#09172a;border:1px solid var(--line);border-radius:14px;color:var(--text);padding:12px;outline:none}textarea{min-height:80px;resize:vertical}button{border:0;border-radius:14px;padding:11px 14px;font-weight:800;cursor:pointer;background:linear-gradient(135deg,var(--blue),var(--cyan));color:#001225}.btn2{background:#142640;color:var(--text);border:1px solid var(--line)}.danger{background:var(--danger);color:white}.ok{background:var(--ok);color:#001b11}.muted{color:var(--muted);font-size:13px}.list{display:flex;flex-direction:column;gap:10px;max-height:640px;overflow:auto;padding-right:4px}.item{background:#0b1729;border:1px solid rgba(255,255,255,.07);border-radius:18px;padding:12px;display:flex;gap:12px;align-items:center;justify-content:space-between}.item.active{outline:2px solid var(--cyan)}.item-main{display:flex;gap:10px;align-items:center;min-width:0}.pic{width:48px;height:48px;border-radius:15px;background:#112744;display:grid;place-items:center;overflow:hidden;font-size:24px;flex:0 0 auto}.pic img{width:100%;height:100%;object-fit:cover}.truncate{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.pill{font-size:11px;border:1px solid var(--line);border-radius:999px;padding:4px 8px;color:var(--muted)}.option{border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:12px;background:#09172a;margin-top:10px}.option-head{display:flex;justify-content:space-between;gap:10px;align-items:center}.hidden{display:none!important}.login{max-width:430px;margin:10vh auto}.toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);background:#0c1d33;border:1px solid var(--line);padding:12px 16px;border-radius:16px;box-shadow:0 12px 50px #0008;display:none}.toast.show{display:block}.preview{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}.p-card{background:#08172a;border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:12px}.p-card img{width:100%;height:105px;object-fit:cover;border-radius:15px;background:#0f2440}.price{color:var(--cyan);font-weight:900}.toolbar{display:flex;gap:8px;flex-wrap:wrap}.small{font-size:12px;padding:8px 10px;border-radius:11px}.sep{height:1px;background:rgba(255,255,255,.08);margin:14px 0}@media(max-width:860px){.grid,.row,.row3{grid-template-columns:1fr}.top{align-items:flex-start;flex-direction:column}.toolbar{width:100%}.toolbar button{flex:1}.list{max-height:none}}
+  </style>
+</head>
+<body>
+  <div id="loginBox" class="login card">
+    <div class="brand"><div class="logo">GS</div><div><h2 style="margin:0">Admin GilangStore</h2><div class="muted">Login pakai akun Supabase Auth</div></div></div>
+    <label>Email admin</label><input id="email" type="email" placeholder="email@gmail.com">
+    <label>Password</label><input id="password" type="password" placeholder="password">
+    <div style="display:flex;gap:10px;margin-top:14px"><button onclick="login()">Masuk</button><button class="btn2" onclick="signup()">Buat akun</button></div>
+    <p class="muted">Setelah buat akun, masukkan emailnya ke tabel <b>admin_users</b> lewat SQL Editor supaya boleh edit.</p>
+  </div>
+
+  <div id="app" class="wrap hidden">
+    <div class="top">
+      <div class="brand"><div class="logo">GS</div><div><h2 style="margin:0">Admin GilangStore</h2><div id="who" class="muted"></div></div></div>
+      <div class="toolbar"><button class="btn2" onclick="loadAll()">Refresh</button><button class="btn2" onclick="newProduct()">+ Produk</button><button onclick="saveProduct()">Simpan Produk</button><button class="danger" onclick="logout()">Keluar</button></div>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <div class="toolbar"><input id="search" placeholder="Cari produk..." oninput="renderProducts()"><select id="filterType" onchange="renderProducts()"><option value="all">Semua</option><option value="premium">Premium</option><option value="topup">Topup</option></select></div>
+        <div class="sep"></div>
+        <div id="productList" class="list"></div>
+      </div>
+
+      <div class="card">
+        <h3 style="margin-top:0">Edit Produk</h3>
+        <input id="productId" type="hidden">
+        <div class="row">
+          <div><label>Nama produk</label><input id="name" placeholder="Netflix Premium"></div>
+          <div><label>Slug/link</label><input id="slug" placeholder="netflix-premium"></div>
+        </div>
+        <div class="row3">
+          <div><label>Kategori</label><input id="category" placeholder="streaming / game"></div>
+          <div><label>Jenis produk</label><select id="productType" onchange="suggestDefaultOptions()"><option value="premium">Premium bulanan</option><option value="topup">Topup nominal</option></select></div>
+          <div><label>Status</label><select id="status"><option value="aktif">Aktif</option><option value="habis">Habis</option><option value="nonaktif">Nonaktif</option></select></div>
+        </div>
+        <div class="row3">
+          <div><label>Icon emoji/nama file/URL</label><input id="icon" placeholder="netflix.png atau 🎬"></div>
+          <div><label>Gambar produk</label><input id="imageUrl" placeholder="netflix.png / https://..."></div>
+          <div><label>Label</label><input id="labelText" placeholder="PROMO / HOT / BEST"></div>
+        </div>
+        <label>Deskripsi</label><textarea id="description" placeholder="Deskripsi produk"></textarea>
+        <div class="row">
+          <div><label>Urutan tampil</label><input id="sortOrder" type="number" value="0"></div>
+          <div style="display:flex;align-items:end;gap:8px"><button class="btn2" onclick="deleteProduct()">Hapus Produk</button><button class="ok" onclick="addOption()">+ Tambah Opsi</button></div>
+        </div>
+
+        <div class="sep"></div>
+        <h3>Opsi harga</h3>
+        <p class="muted">Untuk produk premium isi 1 bulan, 2 bulan, 3 bulan. Untuk topup isi nominal seperti 86 Diamonds, 172 Diamonds, dst.</p>
+        <div id="optionsBox"></div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:16px">
+      <h3 style="margin-top:0">Preview Data dari Supabase</h3>
+      <div id="preview" class="preview"></div>
+    </div>
+  </div>
+  <div id="toast" class="toast"></div>
+
+<script>
+const cfg = window.GILANGSTORE_SUPABASE || {};
+const supabase = window.supabase.createClient(cfg.url || '', cfg.anonKey || '');
+let products = [], options = [], selectedId = null;
+const $ = id => document.getElementById(id);
+function toast(t){ const el=$('toast'); el.textContent=t; el.classList.add('show'); setTimeout(()=>el.classList.remove('show'),1800); }
+function slugify(s){return String(s||'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')}
+function rupiah(n){return 'Rp '+Number(n||0).toLocaleString('id-ID')}
+function iconHTML(v){ if(!v) return '🛍️'; if(/^https?:\/\//.test(v)||/\.(png|jpe?g|gif|webp|svg)$/i.test(v)) return `<img src="${v}" onerror="this.replaceWith(document.createTextNode('🛍️'))">`; return v; }
+async function init(){
+  if(!cfg.url || !cfg.anonKey || cfg.url.includes('PROJECT_ID')) toast('Isi supabase-config.js dulu ya');
+  const {data:{session}} = await supabase.auth.getSession();
+  if(session) showApp(session); else $('loginBox').classList.remove('hidden');
+}
+async function login(){ const {error}=await supabase.auth.signInWithPassword({email:$('email').value.trim(),password:$('password').value}); if(error) return toast(error.message); const {data:{session}}=await supabase.auth.getSession(); showApp(session); }
+async function signup(){ const {error}=await supabase.auth.signUp({email:$('email').value.trim(),password:$('password').value}); if(error) return toast(error.message); toast('Akun dibuat. Tambahkan email ini ke admin_users lewat SQL.'); }
+async function logout(){ await supabase.auth.signOut(); location.reload(); }
+async function showApp(session){ $('loginBox').classList.add('hidden'); $('app').classList.remove('hidden'); $('who').textContent=session.user.email; await loadAll(); }
+async function loadAll(){
+  let p = await supabase.from('products').select('*').order('sort_order',{ascending:true}).order('name');
+  if(p.error) return toast('Produk gagal dimuat: '+p.error.message);
+  let o = await supabase.from('product_options').select('*').order('sort_order',{ascending:true}).order('option_name');
+  if(o.error) return toast('Opsi gagal dimuat: '+o.error.message);
+  products=p.data||[]; options=o.data||[]; renderProducts(); renderPreview(); if(!selectedId && products[0]) selectProduct(products[0].id);
+}
+function renderProducts(){
+  const q=$('search').value.toLowerCase(), type=$('filterType').value;
+  const list=products.filter(p=>(type==='all'||p.product_type===type) && `${p.name} ${p.slug} ${p.category}`.toLowerCase().includes(q));
+  $('productList').innerHTML=list.map(p=>`<div class="item ${p.id===selectedId?'active':''}" onclick="selectProduct('${p.id}')"><div class="item-main"><div class="pic">${iconHTML(p.icon||p.image_url)}</div><div style="min-width:0"><b class="truncate" style="display:block">${p.name}</b><span class="muted">${p.slug}</span><br><span class="pill">${p.product_type}</span> <span class="pill">${p.status}</span></div></div><span class="muted">${(options.filter(o=>o.product_id===p.id)).length} opsi</span></div>`).join('') || '<p class="muted">Belum ada produk.</p>';
+}
+function selectProduct(id){ selectedId=id; const p=products.find(x=>x.id===id); if(!p) return; $('productId').value=p.id; $('name').value=p.name||''; $('slug').value=p.slug||''; $('category').value=p.category||''; $('productType').value=p.product_type||'premium'; $('status').value=p.status||'aktif'; $('icon').value=p.icon||''; $('imageUrl').value=p.image_url||''; $('labelText').value=p.label||''; $('description').value=p.description||''; $('sortOrder').value=p.sort_order||0; renderOptions(); renderProducts(); }
+function newProduct(){ selectedId=null; ['productId','name','slug','category','icon','imageUrl','labelText','description'].forEach(id=>$(id).value=''); $('productType').value='premium'; $('status').value='aktif'; $('sortOrder').value=products.length+1; $('optionsBox').innerHTML=''; $('name').focus(); }
+$('name')?.addEventListener('input',()=>{ if(!$('slug').value) $('slug').value=slugify($('name').value); });
+async function saveProduct(){
+  const row={name:$('name').value.trim(), slug:slugify($('slug').value||$('name').value), category:$('category').value.trim()||'premium', product_type:$('productType').value, status:$('status').value, icon:$('icon').value.trim()||'🛍️', image_url:$('imageUrl').value.trim()||'gilz.png', label:$('labelText').value.trim()||'PROMO', description:$('description').value.trim(), sort_order:Number($('sortOrder').value||0)};
+  if(!row.name) return toast('Nama produk wajib diisi');
+  let res; if($('productId').value) res=await supabase.from('products').update(row).eq('id',$('productId').value).select().single(); else res=await supabase.from('products').insert(row).select().single();
+  if(res.error) return toast(res.error.message);
+  selectedId=res.data.id; $('productId').value=selectedId; toast('Produk tersimpan ✅'); await saveOptions(false); await loadAll(); selectProduct(selectedId);
+}
+async function deleteProduct(){ if(!selectedId) return; if(!confirm('Hapus produk dan semua opsinya?')) return; const {error}=await supabase.from('products').delete().eq('id',selectedId); if(error) return toast(error.message); selectedId=null; toast('Produk dihapus'); await loadAll(); }
+function getCurrentOptionRows(){ return [...document.querySelectorAll('.option')].map((el,i)=>({id:el.dataset.id||null, product_id:selectedId, option_name:el.querySelector('.op-name').value.trim(), option_type:el.querySelector('.op-type').value, duration_months: Number(el.querySelector('.op-month').value||0) || null, topup_amount: Number(el.querySelector('.op-topup').value||0) || null, price:Number(el.querySelector('.op-price').value||0), stock:Number(el.querySelector('.op-stock').value||0), status:el.querySelector('.op-status').value, sort_order:Number(el.querySelector('.op-sort').value||i+1)})).filter(x=>x.option_name); }
+function optionTemplate(o={}){ return `<div class="option" data-id="${o.id||''}"><div class="option-head"><b>${o.option_name||'Opsi baru'}</b><button class="danger small" onclick="removeOptionEl(this)">Hapus</button></div><div class="row3"><div><label>Nama opsi</label><input class="op-name" value="${o.option_name||''}" placeholder="1 Bulan / 86 Diamonds"></div><div><label>Tipe opsi</label><select class="op-type"><option value="duration" ${o.option_type==='duration'?'selected':''}>Durasi bulanan</option><option value="topup" ${o.option_type==='topup'?'selected':''}>Topup nominal</option><option value="custom" ${o.option_type==='custom'?'selected':''}>Custom</option></select></div><div><label>Status</label><select class="op-status"><option value="aktif" ${o.status!=='habis'&&o.status!=='nonaktif'?'selected':''}>Aktif</option><option value="habis" ${o.status==='habis'?'selected':''}>Habis</option><option value="nonaktif" ${o.status==='nonaktif'?'selected':''}>Nonaktif</option></select></div></div><div class="row3"><div><label>Bulan</label><input class="op-month" type="number" value="${o.duration_months||''}" placeholder="1"></div><div><label>Jumlah topup</label><input class="op-topup" type="number" value="${o.topup_amount||''}" placeholder="86"></div><div><label>Harga</label><input class="op-price" type="number" value="${o.price||0}"></div></div><div class="row"><div><label>Stok</label><input class="op-stock" type="number" value="${o.stock??999}"></div><div><label>Urutan</label><input class="op-sort" type="number" value="${o.sort_order||1}"></div></div></div>`; }
+function renderOptions(){ const rows=options.filter(o=>o.product_id===selectedId); $('optionsBox').innerHTML=rows.map(optionTemplate).join('') || '<p class="muted">Belum ada opsi. Klik tambah opsi atau pilih jenis produk.</p>'; }
+function addOption(data={}){ if(!selectedId && !$('productId').value) return toast('Simpan produk dulu, baru tambah opsi'); $('optionsBox').insertAdjacentHTML('beforeend', optionTemplate({...data, sort_order:document.querySelectorAll('.option').length+1, status:'aktif'})); }
+function removeOptionEl(btn){ btn.closest('.option').remove(); }
+function suggestDefaultOptions(){ if(document.querySelectorAll('.option').length) return; const t=$('productType').value; if(t==='premium'){ addOption({option_name:'1 Bulan',option_type:'duration',duration_months:1,price:0}); addOption({option_name:'2 Bulan',option_type:'duration',duration_months:2,price:0}); addOption({option_name:'3 Bulan',option_type:'duration',duration_months:3,price:0}); } else { addOption({option_name:'86 Diamonds',option_type:'topup',topup_amount:86,price:0}); addOption({option_name:'172 Diamonds',option_type:'topup',topup_amount:172,price:0}); } }
+async function saveOptions(show=true){ if(!selectedId) return; const current=getCurrentOptionRows(); const old=options.filter(o=>o.product_id===selectedId); const keep=current.filter(x=>x.id).map(x=>x.id); const del=old.filter(x=>!keep.includes(x.id)).map(x=>x.id); if(del.length){ const d=await supabase.from('product_options').delete().in('id',del); if(d.error) return toast(d.error.message); }
+  for(const row of current){ let r; if(row.id) r=await supabase.from('product_options').update(row).eq('id',row.id); else r=await supabase.from('product_options').insert(row); if(r.error) return toast(r.error.message); }
+  if(show) toast('Opsi tersimpan ✅'); }
+function renderPreview(){ $('preview').innerHTML=products.map(p=>{ const ops=options.filter(o=>o.product_id===p.id && o.status!=='nonaktif'); return `<div class="p-card"><div class="pic" style="width:100%;height:105px;margin-bottom:10px">${iconHTML(p.image_url||p.icon)}</div><b>${p.name}</b><div class="muted">${p.category} • ${p.status}</div>${ops.map(o=>`<div style="margin-top:8px"><span>${o.option_name}</span><br><span class="price">${rupiah(o.price)}</span></div>`).join('')}</div>` }).join(''); }
+window.addEventListener('load',init);
+</script>
+</body>
+</html>
